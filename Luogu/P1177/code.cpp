@@ -34,7 +34,7 @@ int main() {
 	for (int i=1; i<=n; i++) {
 		cout<<a[i]<<" ";
 	}
-	cout<<endl;
+	cout<<endl;system("pause");
 	return 0;
 }
 

@@ -15,7 +15,6 @@ void bubbleSort() {
 
 int main() {
 	cin>>n;
-	// ‰»Î
 	for (int i=0; i<n; i++) {
 		cin>>a[i];
 	}
@@ -32,6 +31,6 @@ int main() {
 			cout<<a[i]<<" ";
 		}
 	}
-	return 0;
+	system("pause");return 0;
 }
 

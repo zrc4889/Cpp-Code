@@ -20,7 +20,7 @@ int main () {
 	for (int i=0; i<n; i++) if (a[i]!=i) flag=false;
 	if (flag==1) cout<<"Jolly";
 	else cout<<"Not jolly";
-	return 0;
+	system("pause");return 0;
 }
 
 
