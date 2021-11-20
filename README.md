@@ -1,5 +1,8 @@
 # Cpp-Code
 
+#### 语言
+[Chinese](https://gitee.com/zrc4889/cpp-code/blob/master/README.md) | [English](https://gitee.com/zrc4889/cpp-code/blob/master/README.en.md)
+
 #### 介绍
 C++学习之路，写代码的仓库啊
 
