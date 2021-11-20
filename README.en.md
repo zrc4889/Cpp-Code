@@ -1,5 +1,9 @@
 # Cpp-Code
 
+#### language
+
+[Chinese](https://gitee.com/zrc4889/cpp-code/blob/master/README.md)| [English]https://gitee.com/zrc4889/cpp-code/blob/master/README.en.md)
+
 #### introduce
 The road to C++ learning, a warehouse for writing code
 
