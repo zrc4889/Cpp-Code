@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
 using namespace std;
 const int SIZE = 100000;
 int num[SIZE],n,a[SIZE];
