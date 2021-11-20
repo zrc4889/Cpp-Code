@@ -19,5 +19,6 @@ int main() {
 		Sb+=ver[b[i%Nb]][a[i%Na]];
 	} 
 	cout<<Sa<<" "<<Sb;
+	system("pause");
 	return 0;
 }
