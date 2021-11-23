@@ -30,4 +30,6 @@ int main()
         cout << 0 << endl;
     else
         cout << n << endl;
+
+    system("pause");
 }
