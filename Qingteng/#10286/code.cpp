@@ -1,40 +1,41 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int a[1000000]; //数组要定义全局
+int a[20000]; //数组要定义全局
 int n;
-int ans = 0, sum;
+int ans = 0, target = 0;
 
 int main()
 {
 	//相向尺取法
 
 	cin >> n;
-	for (int i = 1; i <= n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		cin >> a[i];
 	}
-	cin >> sum;
+	cin >> target;
+	sort(a , a+n);
 
+	int minx = INT_MAX;
 	int i = 1, j = n;
 	while (i < j)
 	{
-		if (a[i] + a[j] == sum)
+		int temp = a[i] + a[j] - target;
+		minx = min(abs(temp), minx);
+		if (temp == 0)
 		{
-			ans++;
-			i++;
+			break;
+		}
+		else if (temp < 0)
+		{
 			j--;
 		}
-		else if (a[i] + a[j] < sum)
+		else if (temp > 0)
 		{
 			i++;
-		}
-		else if (a[i] + a[j] > sum)
-		{
-			j--;
 		}
 	}
-
-	cout << ans; //直接输出ans
+	cout << minx;
 	// system("pause");
 	return 0;
 }
