@@ -1,32 +1,41 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int a[1000000]; //数组要定义全局
-int n;
-int ans = 0, sum;
-//前几次CE是因为sum没定义，RE记得看数组全局加题目要求范围和优化
-//CCF最新禁令：不得使用system函数，注释骂人！
+int n, w;
+int a[30000];
+int i = 1, j = n, ans = 0;
 int main()
 {
-	//相向尺取法
 
-	cin >> n;
-	for (int i = 1; i <= n; i++)
-	{
+	cin >> w >> n;
+	for (i = 1; i <= n; i++)
 		cin >> a[i];
+	sort(a + 1, a + n + 1);
+	for (i = 1; i <= n; i++)
+	{
+		cout << a[i] << " ";
 	}
-	cin >> sum;
-
-	int i = 1, j = n;
+	cout << endl;
+	// for (int i = 1; i <= n; i++)
+	// {
+	// 	for (int j = 1; j <= n; j++)
+	// 	{
+	// 		if (a[i] + a[j] == w)
+	// 			ans++;
+	// 	}
+	// }
+	i = 1, j = n, ans = 0;
 	while (i < j)
 	{
-		if (a[i] + a[j] == sum)
-			ans++, i++, j--;
-		else if (a[i] + a[j] < sum)
+		cout << a[i] << " + " << a[j] << " = " << a[i] + a[j];
+		if (a[i] + a[j] == w)
+			ans++, i++, j--, cout << " Yes!";
+		else if (a[i] + a[j] < w)
 			i++;
-		else if (a[i] + a[j] > sum)
+		else if (a[i] + a[j] > w)
 			j--;
+		cout << endl;
 	}
-	cout << ans; //直接输出ans
-	// system("pause");
+	cout << ans;
+	system("pause");
 	return 0;
 }
