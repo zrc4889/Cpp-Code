@@ -22,6 +22,6 @@ int main(){
     for (int i=0;i<s;i++){
         cout<<p[i]<<endl;
     }
-    system("pause");
+    // system("pause");
     return 0;
 }
