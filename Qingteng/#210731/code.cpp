@@ -15,14 +15,6 @@ int main()
 		cout << a[i] << " ";
 	}
 	cout << endl;
-	// for (int i = 1; i <= n; i++)
-	// {
-	// 	for (int j = 1; j <= n; j++)
-	// 	{
-	// 		if (a[i] + a[j] == w)
-	// 			ans++;
-	// 	}
-	// }
 	i = 1, j = n, ans = 0;
 	while (i < j)
 	{

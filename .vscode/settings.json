@@ -59,7 +59,26 @@
         "utility": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "algorithm": "cpp",
+        "cassert": "cpp",
+        "ccomplex": "cpp",
+        "cerrno": "cpp",
+        "cfloat": "cpp",
+        "ciso646": "cpp",
+        "climits": "cpp",
+        "cstdalign": "cpp",
+        "cstdbool": "cpp",
+        "ctgmath": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "*.rh": "cpp"
     },
     "editor.mouseWheelZoom": true
 }
