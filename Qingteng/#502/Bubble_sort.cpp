@@ -23,7 +23,7 @@ int main()
     {
         cin >> a[i];
     }
-    solve();
+    bubble_sort();
     for (int i = 0; i < n; i++)
     {
         cout << a[i] << " ";
