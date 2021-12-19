@@ -24,7 +24,7 @@ void sort(int l, int r)
     }
     while (i <= mid)
     {
-        c[k++] = a[i++];
+        c[k++] = a[i++]; 
     }
     while (j <= r)
     {

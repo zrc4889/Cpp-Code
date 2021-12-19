@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int a[10001], n;
-void solve()
+void bubble_sort()
 {//冒泡排序
     for (int i = 0; i < n; i++)
     {
@@ -28,6 +28,5 @@ int main()
     {
         cout << a[i] << " ";
     }
-    // system("pause");
     return 0;
 }
