@@ -49,6 +49,6 @@ int main()
     {
         cout << a[i] << " ";
     }
-    // system("pause");
+    system("pause");
     return 0;
 }

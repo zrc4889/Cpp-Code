@@ -12,8 +12,8 @@ map<string, string> tsl;
 int main()
 
 {
-    in.open("translate.trf");
-    ot.open("tsl.trf");
+    in.open("\\file\\translate.trf");
+    ot.open("\\file\\tsl.trf");
     int n;
     string t1, t2;
     in >> n;
@@ -25,7 +25,7 @@ int main()
     // fclose(stdin);
     // freopen("a.trf","r",stdin);
     in.close();
-    in.open("a.trf");
+    in.open("\\file\\a.trf");
     int v;
     in >> v;
     for (int i = 0; i < v; i++)
