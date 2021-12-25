@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <algorithm>
 using namespace std;
-int a[1000000], c[1000000],o[100001];
+int a[1000000], c[1000000];
 int n, k;
 void sort(int l, int r)
 {
@@ -34,25 +34,28 @@ void sort(int l, int r)
     }
     for (int i = l; i <= r; ++i)
     {
-        a[i] = c[i]; //克隆一下
+        a[i] = c[i];
     }
 }
 int main()
 {
-    cin >> n;
+    cin >> n >> k;
+
     for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
     }
     sort(1, n);
-    cin>>k;
-    for (int i=0;i<k;i++){
-        int temp;
-        cin>>temp;
-        o[i] = a[temp];
+    int temp = 0;
+    int cnt = 1;
+    for (int i=1;i<=n;i++){
+        if (a[i] != temp && cnt <= k){
+            temp = a[i];
+            cnt ++;
+        }
     }
-    for (int i=0;i<k;i++){
-        cout<<o[i]<<endl;
-    }
+    if (temp >= a[n]) cout<<"NO RESULT";
+    cout<<temp;
+    // system("pause");
     return 0;
 }

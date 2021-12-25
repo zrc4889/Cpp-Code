@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include <algorithm>6
 using namespace std;
 int a[100000], c[100000];
+long long ans = 0;
 void sort(int l, int r)
 {
     if (l >= r)
@@ -12,15 +12,17 @@ void sort(int l, int r)
     sort(l, mid);
     sort(mid + 1, r);
     int i = l, j = mid + 1, k = l;
-    while (i <= mid && j <= r)7
+    while (i <= mid && j <= r)
     {
-        if (a[i] < a[j])
+        if (a[i] > a[j])
         {
-            c[k++] = a[i++];
+            c[k++] = a[i++];ans += mid - i + 1;
         }
         else
         {
+
             c[k++] = a[j++];
+            
         }
     }
     while (i <= mid)
@@ -33,23 +35,26 @@ void sort(int l, int r)
     }
     for (int i = l; i <= r; ++i)
     {
-        a[i] = c[i]; //克隆一下
+        a[i] = c[i];
     }
 }
 
 int main()
 {
-    int n, m;
-    cin >> n >> m;
-    for (int i = 0; i < n + m; i++)
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
     {
         cin >> a[i];
     }
-    sort(0, n + m);
-    for (int i = 1; i <= n + m; i++)
-    {
-        cout << a[i] << " ";
-    }
+    sort(1, n);
+    // for (int i = 1; i <= n; i++)
+    //     cout << a[i];
+    cout << ans;
+    // for (int i = 1; i <= n; ++i)
+    // {
+    //     cout << a[i] << " ";
+    // }
     system("pause");
-    return 0;
+    return 0;   
 }
