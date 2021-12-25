@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
-int a[100000], c[100000];
+int a[100000];
+int temp[10001]; // 数组不能开在函数内，会爆掉的！！
 void sort(int a[10001],int l, int r)
 {
-    int temp[10001];
     if (l >= r)
     {
         return;

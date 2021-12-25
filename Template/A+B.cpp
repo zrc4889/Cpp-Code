@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 经典高精度加法
+
 int a[10001], b[10001];
 int la, lb;
 int m = 0;
