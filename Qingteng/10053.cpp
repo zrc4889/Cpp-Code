@@ -48,14 +48,20 @@ int main()
     sort(1, n);
     int temp = 0;
     int cnt = 1;
-    for (int i=1;i<=n;i++){
-        if (a[i] != temp && cnt <= k){
+    for (int i = 1; i <= n; i++)
+    {
+        if (a[i] != temp && cnt <= k)
+        {
             temp = a[i];
-            cnt ++;
+            cnt++;
         }
     }
-    if (temp >= a[n]) cout<<"NO RESULT";
-    cout<<temp;
+    if (temp >= a[n])
+    {
+        cout << "NO RESULT";
+        return 0;
+    }
+    cout << temp;
     // system("pause");
     return 0;
 }
