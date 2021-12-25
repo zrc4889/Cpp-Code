@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 //数据大的时候用scanf，cin太慢
-const int maxn = 1e5 + 10;
-int a[maxn];
-int n;
+// const int maxn = 1e5 + 10;
+int a[1000001];
+int n, k;
 void sort(int l, int r)
 {
     if (l >= r)
@@ -25,21 +25,24 @@ void sort(int l, int r)
     }
     // [l, j] [i ,r]
     // 左右两边递归
-    sort(l, j);
-    sort(i, r);
+    if (l <= n - k + 1 && n - k + 1 <= j)
+        sort(l, j); 
+    if (i <= n - k + 1 && n - k + 1 <= r)
+        sort(i, r);
 }
 int main()
 {
-    cin >> n;
+    cin >> n >> k;
     for (int i = 1; i <= n; i++)
     {
         cin >> a[i];
     }
     sort(1, n);
-    for (int i = 1; i <= n; i++)
-    {
-        cout << a[i] << " ";
-    }
+    // for (int i = 1; i <= n; i++)
+    // {
+    // cout << a[i] << " ";
+    // }
+    cout << a[n - k + 1];
     // system("pause");
     return 0;
 }
