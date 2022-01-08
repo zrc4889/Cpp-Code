@@ -2,21 +2,26 @@
 using namespace std;
 int a[10001];
 int n, d;
-int cnt=0;
-int main(){
-    cin>>n;
-    cin>>d;
-    for (int i=0;i<n;i++){
-        cin>>a[i];
+int cnt = 0;
+int main()
+{
+    cin >> n;
+    cin >> d;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
     }
-    for (int i=0;i<n-1;i++){
-        if (a[i] < a[i+1]){
-            int x = a[i+1] - a[i];
-            cnt+=x%d;
-            a[i] = a[i] + x%d*d;
-        }else if (a[i] == a[i+1])
+    for (int i = 1; i <= n; i++)
+    {
+        // 从后面反推 i-1
+        if (a[i] <= a[i - 1])
+        {
+            // int x = ;
+            cnt += (a[i - 1] - a[i]) / d + 1;
+            a[i] += ((a[i - 1] - a[i]) / d + 1) * d;
+        }
     }
-    cout<<cnt;
-    system("pause");
+    cout << cnt;
+    // system("pause");
     return 0;
 }
