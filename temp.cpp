@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int a[10001];
+// char d[100001]="伟大的祖国是我们的家乡";
 int main()
 {
     double n;

@@ -27,5 +27,6 @@ int main()
             if (s[i] != '/') cout<<s[i];
         }
     }
-    // system("pause");
+    system("pause");
+    return 0;
 }
