@@ -1,25 +1,44 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+int a[10001];
 int main()
 {
-    int n;
-    cin>>n;
-    int a[n+1],i;
-    for (i=1;i<=n;i++)
+    double n;
+    int k;
+    cout << "num:";
+    cin >> n;
+    cout << "max:";
+    cin >> k;
+    srand((unsigned)time(0));
+    for (int i = 0; i < n; i++)
     {
-        cin>>a[i];
+        int temp = rand() % k + 1;
+        a[i] = temp;
+        cout << a[i] << " ";
     }
-    sort(a+1,a+n+1);
-	for(i=1;i<=n;i++)
+    cout << "accpet?";
+    int c;
+    double score = 0;
+    cin >> c;
+    if (c)
     {
-        if(a[i]>a[1])
+        system("cls");
+        for (int i = 0; i < n; i++)
         {
-        	cout<<a[i];
-            system("pause");
-        	return 0;
-		}
-	}
+            int x;
+            cin >> x;
+            if (x == a[i])
+            {
+                score++;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << a[i] << " ";
+    }
+    cout<<endl;
+    cout << score / n * 100;
     system("pause");
-	cout<<"NO"; 
     return 0;
 }

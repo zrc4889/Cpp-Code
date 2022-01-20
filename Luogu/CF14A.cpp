@@ -1,21 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-string str[55];
-int n, m;int x1 = 500, y1 = 500, x2, y2;
+char str[51][51];
+int n, m;
+int x1 = 500, y1 = 500, x2, y2;
 int main()
 {
     cin >> n >> m;
-    
+
     //  right_up right_down left_up left_down
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     cin>>str[i];
+    // }
     for (int i = 1; i <= n; i++)
     {
-        cin>>str[i];
-    }
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 0; j < m; j++)
+        for (int j = 1; j <= m; j++)
         {
-            if (str[i][j] == '*')
+            char temp;
+            cin >> temp;
+            str[i][j] = temp;
+            if (temp == '*')
+            // if (str[i][j] == '*')
             {
                 x1 = min(x1, i);
                 y1 = min(y1, j);
