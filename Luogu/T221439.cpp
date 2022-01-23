@@ -14,6 +14,7 @@ int main()
         swap(x1, x2);
     if (y1 > y2)
         swap(y1, y2);
+
     if (x1 <= l1 && l2 <= x2 && y1 <= r1 && r2 <= y2)
         cout << 0 << endl;
     else if (x1 <= l1 && l2 <= x2 && y1 <= r2 && r2 <= y2)
@@ -26,5 +27,6 @@ int main()
         cout << (r2 - r1) * (x1 - l1);
     else
         cout << (l2 - l1) * (r2 - r1);
+        system("pause");
     return 0;
 }
