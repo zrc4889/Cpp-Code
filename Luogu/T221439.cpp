@@ -27,6 +27,6 @@ int main()
         cout << (r2 - r1) * (x1 - l1);
     else
         cout << (l2 - l1) * (r2 - r1);
-        system("pause");
+        // system("pause");
     return 0;
 }
