@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-char a[3][3];
+char a[4][4];
 int work1()
 {
     int ans = 0;
-    int p = 0;
     for (char c = 'A'; c <= 'Z'; ++c)
     {
         // 字符也可以循环
-
+        int p = 0;
         for (int i = 1; i <= 3; ++i)
         {
             if (a[i][1] == a[i][2] && a[i][2] == a[i][3] && a[i][3] == a[i][1])
@@ -32,7 +31,7 @@ int work1()
             p++;
         }
         if (p > 0)
-            ans++;              
+            ans++;
     }
     return ans;
 }
@@ -82,5 +81,6 @@ int main()
             cin >> a[i][j];
     cout << work1() << endl;
     cout << work2() << endl;
+    // system("pause");
     return 0;
 }
