@@ -1,46 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-char str[51][51];
+string a[55];
 int n, m;
-int x1 = 500, y1 = 500, x2, y2;
+int sx = 105, sy = 105, xx, xy;
 int main()
 {
     cin >> n >> m;
-
-    //  right_up right_down left_up left_down
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     cin>>str[i];
-    // }
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++)
-        {
-            char temp;
-            cin >> temp;
-            str[i][j] = temp;
-            if (temp == '*')
-            // if (str[i][j] == '*')
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+    for (int i = 1; i <= n; ++i)
+        for (int j = 0; j < m; ++j)
+            if (a[i][j] == '*')
             {
-                x1 = min(x1, i);
-                y1 = min(y1, j);
-                x2 = max(x2, i);
-                y2 = max(y1, j);
-                // 实质上就是找最大值和最小值
-                // break;
+                sx = min(sx, i);
+                sy = min(sy, j);
+                xx = max(xx, i);
+                xy = max(xy, j);
             }
-        }
-    }
-    // cout << endl;
-    for (int i = x1; i <= x2; i++)
+    for (int x = sx; x <= xx; ++x)
     {
-        for (int j = y1; j <= y2; j++)
-        {
-            cout << str[i][j];
-        }
+        for (int y = sy; y <= xy; ++y)
+            cout << a[x][y];
         cout << endl;
     }
-
-    // system("pause");
     return 0;
 }
