@@ -2,5 +2,6 @@
     "files.associations": {
         "editor.mouseWheelZoom": true,
         "ostream": "cpp",
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
