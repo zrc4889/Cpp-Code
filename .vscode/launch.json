@@ -14,7 +14,7 @@
             "stopAtEntry": false,
             "cwd": "E:/x86_64-8.1.0-release-win32-seh-rt_v6-rev0/mingw64/bin",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "E:\\x86_64-8.1.0-release-win32-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
