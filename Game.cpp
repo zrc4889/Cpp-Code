@@ -1,1092 +1,1350 @@
-#include<bits/stdc++.h>
-#include<Windows.h>
+#include <bits/stdc++.h>
+#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h>
 #include <time.h>
 #include <conio.h>
 using namespace std;
-int hh=0,jj=0,kk=0,dd=0,pp=0,icp=0,abcd=0;
-int key=0,ktk=0,tkt=0,ttt=0;
+int hh = 0, jj = 0, kk = 0, dd = 0, pp = 0, icp = 0, abcd = 0;
+int key = 0, ktk = 0, tkt = 0, ttt = 0;
 int na;
 char xy[1005][1005];
-int h,p,l,t;
-int pan=0,bigger;
-struct ppp {
-    int xu,mn,gn,du,fe,ja;
-}py;
+int h, p, l, t;
+int pan = 0, bigger;
+struct ppp
+{
+    int xu, mn, gn, du, fe, ja;
+} py;
 void draw();
-void delay(int s) { // ºÁÃë¼¶ÑÓÊ±(AT89C52 @ 11.0592MHz)
+void delay(int s)
+{ // ï¿½ï¿½ï¿½ë¼¶ï¿½ï¿½Ê±(AT89C52 @ 11.0592MHz)
     int ti;
-    while(s--) {
-        for(ti=0; ti<10000; ti++) {} //112
+    while (s--)
+    {
+        for (ti = 0; ti < 10000; ti++)
+        {
+        } // 112
     }
 }
 void sa(int a);
-void goto_xy(int x, int y) { //¶¨Î»¹â±êÎ»ÖÃµ½Ö¸¶¨×ø±ê
+void goto_xy(int x, int y)
+{ //ï¿½ï¿½Î»ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     HANDLE hOut;
     hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos = { x,y };
+    COORD pos = {x, y};
     SetConsoleCursorPosition(hOut, pos);
 }
-bool jjj(int x,int y,int a,int b,int c,int d) {
-    HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);    //»ñµÃ±ê×¼Êä³öÉè±¸¾ä±ú
-    CONSOLE_SCREEN_BUFFER_INFO csbi;        //¶¨Òå´°¿Ú»º³åÇøÐÅÏ¢½á¹¹Ìå
-    SMALL_RECT scroll;      //¶¨ÒåÒÆ¶¯ÇøÓò
-    COORD pos = {x,y};     //ÒÆ¶¯Î»ÖÃ
-    CHAR_INFO chFill;       //¶¨ÒåÌî³ä×Ö·û
-    GetConsoleScreenBufferInfo(handle_out, &csbi);  //»ñµÃ´°¿Ú»º³åÇøÐÅÏ¢
-    //¶¨ÒåÌî³ä×Ö·ûµÄ¸÷¸ö²ÎÊý¼°ÊôÐÔ
+bool jjj(int x, int y, int a, int b, int c, int d)
+{
+    HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE); //ï¿½ï¿½Ã±ï¿½×¼ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½
+    CONSOLE_SCREEN_BUFFER_INFO csbi;                     //ï¿½ï¿½ï¿½å´°ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½á¹¹ï¿½ï¿½
+    SMALL_RECT scroll;                                   //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    COORD pos = {x, y};                                  //ï¿½Æ¶ï¿½Î»ï¿½ï¿½
+    CHAR_INFO chFill;                                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
+    GetConsoleScreenBufferInfo(handle_out, &csbi);       //ï¿½ï¿½Ã´ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     chFill.Char.AsciiChar = '*';
     chFill.Attributes = csbi.wAttributes;
-    //Ñ¡ÔñÇøÓò
+    //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     scroll.Left = a;
     scroll.Top = c;
     scroll.Right = b;
     scroll.Bottom = d;
     ScrollConsoleScreenBuffer(handle_out, &scroll, NULL, pos, &chFill);
 }
-void keyDown() {
+void keyDown()
+{
     int n;
     srand((unsigned)time(NULL));
-    if (_kbhit()) { //Èç¹ûÓÃ»§°´ÏÂÁË¼üÅÌÖÐµÄÄ³¸ö¼ü
-        fflush(stdin);//Çå¿Õ»º³åÇøµÄ×Ö·û
-        //getch()¶ÁÈ¡·½Ïò¼üµÄÊ±ºò£¬»á·µ»ØÁ½´Î£¬µÚ¶þ´Îµ÷ÓÃ·µ»ØµÄ²ÅÊÇÊµ¼ÊÖµ
-        key = _getch();//µÚÒ»´Îµ÷ÓÃ·µ»ØµÄ²»ÊÇÊµ¼ÊÖµ
-        key = _getch();//µÚ¶þ´Îµ÷ÓÃ·µ»ØÊµ¼ÊÖµ
+    if (_kbhit())
+    {                  //ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ä³ï¿½ï¿½ï¿½ï¿½
+        fflush(stdin); //ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
+        // getch()ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ò£¬»á·µï¿½ï¿½ï¿½ï¿½ï¿½Î£ï¿½ï¿½Ú¶ï¿½ï¿½Îµï¿½ï¿½Ã·ï¿½ï¿½ØµÄ²ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµ
+        key = _getch(); //ï¿½ï¿½Ò»ï¿½Îµï¿½ï¿½Ã·ï¿½ï¿½ØµÄ²ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµ
+        key = _getch(); //ï¿½Ú¶ï¿½ï¿½Îµï¿½ï¿½Ã·ï¿½ï¿½ï¿½Êµï¿½ï¿½Öµ
     }
-    if(key==0) return;
-    if(key==75) h--;//Íù×ó
-    if(key==77) h++;//ÍùÓÒ
-    if(key==72) p--;//ÍùÉÏ
-    if(key==80) p++;//ÍùÏÂ
-    if(key==13&&py.ja==3) abcd=0;
-    p%=bigger;
-    if(p<0) p+=bigger;
-    h%=bigger;
-    if(h<0) h+=bigger;
-    if(key!=0) {
-        n=rand();
+    if (key == 0)
+        return;
+    if (key == 75)
+        h--; //ï¿½ï¿½ï¿½ï¿½
+    if (key == 77)
+        h++; //ï¿½ï¿½ï¿½ï¿½
+    if (key == 72)
+        p--; //ï¿½ï¿½ï¿½ï¿½
+    if (key == 80)
+        p++; //ï¿½ï¿½ï¿½ï¿½
+    if (key == 13 && py.ja == 3)
+        abcd = 0;
+    p %= bigger;
+    if (p < 0)
+        p += bigger;
+    h %= bigger;
+    if (h < 0)
+        h += bigger;
+    if (key != 0)
+    {
+        n = rand();
         sa(n);
-        //cout<<h<<" "<<p<<" "<<l<<" "<<t<<" "<<xy[p][h]<<endl;
-        //system("pause");
-        if(xy[p][h]=='J') {
-            pan=1;
-            xy[p][h]='@';
+        // cout<<h<<" "<<p<<" "<<l<<" "<<t<<" "<<xy[p][h]<<endl;
+        // system("pause");
+        if (xy[p][h] == 'J')
+        {
+            pan = 1;
+            xy[p][h] = '@';
         }
-        if(xy[p][h]=='K') {
-            pan=2;
-            xy[p][h]='@';
+        if (xy[p][h] == 'K')
+        {
+            pan = 2;
+            xy[p][h] = '@';
         }
-        if(xy[p][h]=='S') {
-            pan=3;
-            xy[p][h]='@';
+        if (xy[p][h] == 'S')
+        {
+            pan = 3;
+            xy[p][h] = '@';
         }
-        if(xy[p][h]=='G') {
-            pan=4;
-            xy[p][h]='@';
+        if (xy[p][h] == 'G')
+        {
+            pan = 4;
+            xy[p][h] = '@';
         }
-        if(xy[p][h]=='P'){
-            pan=5;
-            xy[p][h]='@';
+        if (xy[p][h] == 'P')
+        {
+            pan = 5;
+            xy[p][h] = '@';
         }
-        if(xy[p][h]=='H'){
-            pan=6;
-            xy[p][h]='@';
+        if (xy[p][h] == 'H')
+        {
+            pan = 6;
+            xy[p][h] = '@';
         }
     }
-    key=0;
-    jjj(h,p,l,l,t,t);
-    xy[t][l]='*';
-    xy[p][h]='@';
-    if(t==0&&l==0&&(p!=0||h!=0)) {
-        xy[0][0]='H';
+    key = 0;
+    jjj(h, p, l, l, t, t);
+    xy[t][l] = '*';
+    xy[p][h] = '@';
+    if (t == 0 && l == 0 && (p != 0 || h != 0))
+    {
+        xy[0][0] = 'H';
         draw();
     }
     return;
 }
-int a1=0,a2=0,a3=0,a4=0,a5=0;
-void sa(int a) {
-    int x,y;
+int a1 = 0, a2 = 0, a3 = 0, a4 = 0, a5 = 0;
+void sa(int a)
+{
+    int x, y;
     srand((unsigned)time(NULL));
-    if(a%(31-5*na)==0&&a1==0) {
-        x=rand()%bigger;
-        y=rand()%bigger;
-        while(xy[x][y]!='*') {
-            x=rand()%bigger;
-            y=rand()%bigger;
+    if (a % (31 - 5 * na) == 0 && a1 == 0)
+    {
+        x = rand() % bigger;
+        y = rand() % bigger;
+        while (xy[x][y] != '*')
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
         }
-        goto_xy(y,x);
-        cout<<"K"<<endl;
-        xy[x][y]='K';
+        goto_xy(y, x);
+        cout << "K" << endl;
+        xy[x][y] = 'K';
         a1++;
-        goto_xy(0,bigger+2);
+        goto_xy(0, bigger + 2);
     }
-    if(a%(23-5*na)==0&&a2==0) {
-        x=rand()%bigger;
-        y=rand()%bigger;
-        while(xy[x][y]!='*') {
-            x=rand()%bigger;
-            y=rand()%bigger;
+    if (a % (23 - 5 * na) == 0 && a2 == 0)
+    {
+        x = rand() % bigger;
+        y = rand() % bigger;
+        while (xy[x][y] != '*')
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
         }
-        goto_xy(y,x);
-        cout<<"G"<<endl;
-        xy[x][y]='G';
-        goto_xy(0,bigger+2);
+        goto_xy(y, x);
+        cout << "G" << endl;
+        xy[x][y] = 'G';
+        goto_xy(0, bigger + 2);
         a2++;
     }
-    if(a%(27-5*na)==0&&a3==0) {
-        x=rand()%bigger;
-        y=rand()%bigger;
-        while(xy[x][y]!='*') {
-            x=rand()%bigger;
-            y=rand()%bigger;
+    if (a % (27 - 5 * na) == 0 && a3 == 0)
+    {
+        x = rand() % bigger;
+        y = rand() % bigger;
+        while (xy[x][y] != '*')
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
         }
-        goto_xy(y,x);
-        cout<<"S"<<endl;
-        xy[x][y]='S';
-        goto_xy(0,bigger+2);
+        goto_xy(y, x);
+        cout << "S" << endl;
+        xy[x][y] = 'S';
+        goto_xy(0, bigger + 2);
         a3++;
     }
-    if(a%(47-5*na)==0&&a4==0) {
-        x=rand()%bigger;
-        y=rand()%bigger;
-        while(xy[x][y]!='*') {
-            x=rand()%bigger;
-            y=rand()%bigger;
+    if (a % (47 - 5 * na) == 0 && a4 == 0)
+    {
+        x = rand() % bigger;
+        y = rand() % bigger;
+        while (xy[x][y] != '*')
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
         }
-        goto_xy(y,x);
-        cout<<"J"<<endl;
-        xy[x][y]='J';
-        goto_xy(0,bigger+2);
+        goto_xy(y, x);
+        cout << "J" << endl;
+        xy[x][y] = 'J';
+        goto_xy(0, bigger + 2);
         a4++;
     }
-    if(a%(40-5*na)==0&&a5==0){
-        x=rand()%bigger;
-        y=rand()%bigger;
-        while(xy[x][y]!='*') {
-            x=rand()%bigger;
-            y=rand()%bigger;
+    if (a % (40 - 5 * na) == 0 && a5 == 0)
+    {
+        x = rand() % bigger;
+        y = rand() % bigger;
+        while (xy[x][y] != '*')
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
         }
-        goto_xy(y,x);
-        cout<<"P"<<endl;
-        xy[x][y]='P';
-        goto_xy(0,bigger+2);
+        goto_xy(y, x);
+        cout << "P" << endl;
+        xy[x][y] = 'P';
+        goto_xy(0, bigger + 2);
         a5++;
     }
-    if(a1==0&&a2==0&&a3==0&&a4==0&&a5==0)
+    if (a1 == 0 && a2 == 0 && a3 == 0 && a4 == 0 && a5 == 0)
     {
-        a=rand()%5;
-        if(a==0)
+        a = rand() % 5;
+        if (a == 0)
         {
-            x=rand()%bigger;
-            y=rand()%bigger;
-            while(xy[x][y]!='*') {
-                x=rand()%bigger;
-                y=rand()%bigger;
+            x = rand() % bigger;
+            y = rand() % bigger;
+            while (xy[x][y] != '*')
+            {
+                x = rand() % bigger;
+                y = rand() % bigger;
             }
-            goto_xy(y,x);
-            cout<<"K"<<endl;
-            xy[x][y]='K';
+            goto_xy(y, x);
+            cout << "K" << endl;
+            xy[x][y] = 'K';
             a1++;
-            goto_xy(0,bigger+2);
+            goto_xy(0, bigger + 2);
         }
-        if(a==1)
+        if (a == 1)
         {
-            x=rand()%bigger;
-            y=rand()%bigger;
-            while(xy[x][y]!='*') {
-                x=rand()%bigger;
-                y=rand()%bigger;
+            x = rand() % bigger;
+            y = rand() % bigger;
+            while (xy[x][y] != '*')
+            {
+                x = rand() % bigger;
+                y = rand() % bigger;
             }
-            goto_xy(y,x);
-            cout<<"G"<<endl;
-            xy[x][y]='G';
-            goto_xy(0,bigger+2);
+            goto_xy(y, x);
+            cout << "G" << endl;
+            xy[x][y] = 'G';
+            goto_xy(0, bigger + 2);
             a2++;
         }
-        if(a==2)
+        if (a == 2)
         {
-            x=rand()%bigger;
-            y=rand()%bigger;
-            while(xy[x][y]!='*') {
-                x=rand()%bigger;
-                y=rand()%bigger;
+            x = rand() % bigger;
+            y = rand() % bigger;
+            while (xy[x][y] != '*')
+            {
+                x = rand() % bigger;
+                y = rand() % bigger;
             }
-            goto_xy(y,x);
-            cout<<"S"<<endl;
-            xy[x][y]='S';
-            goto_xy(0,bigger+2);
+            goto_xy(y, x);
+            cout << "S" << endl;
+            xy[x][y] = 'S';
+            goto_xy(0, bigger + 2);
             a3++;
         }
-        if(a==3)
+        if (a == 3)
         {
-            x=rand()%bigger;
-            y=rand()%bigger;
-            while(xy[x][y]!='*') {
-                x=rand()%bigger;
-                y=rand()%bigger;
+            x = rand() % bigger;
+            y = rand() % bigger;
+            while (xy[x][y] != '*')
+            {
+                x = rand() % bigger;
+                y = rand() % bigger;
             }
-            goto_xy(y,x);
-            cout<<"J"<<endl;
-            xy[x][y]='J';
-            goto_xy(0,bigger+2);
+            goto_xy(y, x);
+            cout << "J" << endl;
+            xy[x][y] = 'J';
+            goto_xy(0, bigger + 2);
             a4++;
         }
-        if(a==5){
-            x=rand()%bigger;
-            y=rand()%bigger;
-            while(xy[x][y]!='*') {
-                x=rand()%bigger;
-                y=rand()%bigger;
+        if (a == 5)
+        {
+            x = rand() % bigger;
+            y = rand() % bigger;
+            while (xy[x][y] != '*')
+            {
+                x = rand() % bigger;
+                y = rand() % bigger;
             }
-            goto_xy(y,x);
-            cout<<"P"<<endl;
-            xy[x][y]='P';
-            goto_xy(0,bigger+2);
+            goto_xy(y, x);
+            cout << "P" << endl;
+            xy[x][y] = 'P';
+            goto_xy(0, bigger + 2);
             a5++;
         }
     }
 }
-void draw() {
+void draw()
+{
     system("cls");
-    goto_xy(0,0);
-    for(int i=0; i<bigger; i++) {
-        for(int j=0; j<bigger; j++) {
-            printf("%c",xy[i][j]);
-            if(j==bigger-1) printf("\n");
+    goto_xy(0, 0);
+    for (int i = 0; i < bigger; i++)
+    {
+        for (int j = 0; j < bigger; j++)
+        {
+            printf("%c", xy[i][j]);
+            if (j == bigger - 1)
+                printf("\n");
         }
     }
-    cout<<"¹¥»÷£º"<<py.gn<<" "<<"·ÀÓù£º"<<py.fe<<" "<<"Ñ«ÕÂÊý£º"<<py.ja;
-    cout<<" ÑªÁ¿£º"<<py.xu<<" Ç®Êý£º"<<py.mn<<" ¶ã±ÜÂÊ£º"<<100/py.du<<"%"<<endl;
-    cout<<"Èç¹ûÏë ÔÝÍ£/¼ÌÐø Çë°´Enter¼ü¡££¨ÆäËüÒ»Ð©¼ü¹À¼ÆÒ²ÐÐ£¬µ«½¨ÒéEnter) ";
-    if(py.ja==3) cout<<"°´Á½´ÎEnter»ñÊ¤"<<endl;
-    else cout<<endl; 
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.gn << " "
+         << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.fe << " "
+         << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.ja;
+    cout << " Ñªï¿½ï¿½ï¿½ï¿½" << py.xu << " Ç®ï¿½ï¿½ï¿½ï¿½" << py.mn << " ï¿½ï¿½ï¿½ï¿½Ê£ï¿½" << 100 / py.du << "%" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í£/ï¿½ï¿½ï¿½ï¿½ ï¿½ë°´Enterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Enter) ";
+    if (py.ja == 3)
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Enterï¿½ï¿½Ê¤" << endl;
+    else
+        cout << endl;
 }
-int abc=0;
-void kuang(int a) {
+int abc = 0;
+void kuang(int a)
+{
     int ba;
-    goto_xy(0,bigger+2);
-    cout<<"1.ÓÃÕ¨µ¯ºä£¨Ò×±»ÔÒ£©"<<endl;
-    cout<<"2.ÓÃ²ù×ÓÍÚ£¨Ç®ÉÙ£©"<<endl;
-    cin>>ba;
-    if(ba==1) {
-        py.mn+=max(15,20+5*na);
-        if(a%(40+5*na)==0) {
-            if(a%117==0) {
-                cout<<"Äã±»ÔÒËÀÁË"<<endl;
-                pan=101;
-                return ;
+    goto_xy(0, bigger + 2);
+    cout << "1.ï¿½ï¿½Õ¨ï¿½ï¿½ï¿½ä£¨ï¿½×±ï¿½ï¿½Ò£ï¿½" << endl;
+    cout << "2.ï¿½Ã²ï¿½ï¿½ï¿½ï¿½Ú£ï¿½Ç®ï¿½Ù£ï¿½" << endl;
+    cin >> ba;
+    if (ba == 1)
+    {
+        py.mn += max(15, 20 + 5 * na);
+        if (a % (40 + 5 * na) == 0)
+        {
+            if (a % 117 == 0)
+            {
+                cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                pan = 101;
+                return;
             }
-            cout<<"Äã±»ÔÒÖÐÁË"<<endl;
-            py.fe=0;
-            py.xu-=10;
-            abc=0;
+            cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            py.fe = 0;
+            py.xu -= 10;
+            abc = 0;
         }
         abc++;
-        if(abc==10)
+        if (abc == 10)
         {
             system("color 9D");
-            cout<<"¹§Ï²»ñµÃÓÂ¸ÒÑ«ÕÂ"<<endl;
+            cout << "ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½Â¸ï¿½Ñ«ï¿½ï¿½" << endl;
             py.ja++;
-            py.mn+=200;
-            py.xu+=25;
+            py.mn += 200;
+            py.xu += 25;
         }
-    } else {
-        abc=0;
-        py.mn+=max(5,10+5*na);
-        if(a%(80+5*na)==0) {
-            if(a%237==0) {
-                cout<<"Äã±»ÔÒËÀÁË"<<endl;
-                return ;
+    }
+    else
+    {
+        abc = 0;
+        py.mn += max(5, 10 + 5 * na);
+        if (a % (80 + 5 * na) == 0)
+        {
+            if (a % 237 == 0)
+            {
+                cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                return;
             }
-            cout<<"Äã±»ÔÒÖÐÁË"<<endl;
-            py.fe=0;
-            py.xu-=10;
+            cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            py.fe = 0;
+            py.xu -= 10;
         }
     }
     system("pause");
     draw();
 }
-int ppt=0;
-void guai(int a) {
+int ppt = 0;
+void guai(int a)
+{
     system("cls");
-    goto_xy(0,0);
-    int c,b;
-    cout<<"¹¥»÷£º"<<py.gn<<" "<<"·ÀÓù£º"<<py.fe<<" "<<"Ñ«ÕÂÊý£º"<<py.ja;
-    cout<<" ÑªÁ¿£º"<<py.xu<<" Ç®Êý£º"<<py.mn<<" ¶ã±ÜÂÊ£º"<<100/py.du<<"%"<<endl;
-    int go,fa,bi,qi,jg,po=0,xe;
+    goto_xy(0, 0);
+    int c, b;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.gn << " "
+         << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.fe << " "
+         << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.ja;
+    cout << " Ñªï¿½ï¿½ï¿½ï¿½" << py.xu << " Ç®ï¿½ï¿½ï¿½ï¿½" << py.mn << " ï¿½ï¿½ï¿½ï¿½Ê£ï¿½" << 100 / py.du << "%" << endl;
+    int go, fa, bi, qi, jg, po = 0, xe;
     srand((unsigned)time(NULL));
-    b=a%15;
-    if(ttt==1){
-        b=14;
-        ttt=0;
-    } 
-    if(0<=b&&b<5) {
-        xe=25;
-        go=10-na;
-        fa=3;
-        bi=12;
-        qi=30;
-        jg=5;
-        cout<<"ÄãÓöµ½ÁËÐ¡Ñý¾«"<<endl;
+    b = a % 15;
+    if (ttt == 1)
+    {
+        b = 14;
+        ttt = 0;
     }
-    else {
-        if(5<=b&&b<9) {
-            xe=50;
-            go=17-2*na;
-            fa=5-na;
-            bi=9;
-            qi=75;
-            jg=10;
-            cout<<"ÄãÓöµ½ÁË¾«Ó¢±ø"<<endl;
+    if (0 <= b && b < 5)
+    {
+        xe = 25;
+        go = 10 - na;
+        fa = 3;
+        bi = 12;
+        qi = 30;
+        jg = 5;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½" << endl;
+    }
+    else
+    {
+        if (5 <= b && b < 9)
+        {
+            xe = 50;
+            go = 17 - 2 * na;
+            fa = 5 - na;
+            bi = 9;
+            qi = 75;
+            jg = 10;
+            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½Ó¢ï¿½ï¿½" << endl;
         }
-        else {
-            if(9<=b&&b<12) {
-                xe=75-na;
-                go=35-2*na;
-                fa=10-3*na;
-                bi=6;
-                qi=120;
-                jg=16;
-                cout<<"ÄãÓöµ½ÁË¿ÉÅÂÊØÎÀ"<<endl;
+        else
+        {
+            if (9 <= b && b < 12)
+            {
+                xe = 75 - na;
+                go = 35 - 2 * na;
+                fa = 10 - 3 * na;
+                bi = 6;
+                qi = 120;
+                jg = 16;
+                cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             }
-            else {
-                if(12<=b&&b<14) {
-                    xe=100-2*na;
-                    go=80-3*na;
-                    fa=30-4*na;
-                    bi=max(2,4+na);
-                    qi=200;
-                    jg=32;
-                    cout<<"ÄãÓöµ½ÁË÷Ò÷ÑÊÞ"<<endl;
+            else
+            {
+                if (12 <= b && b < 14)
+                {
+                    xe = 100 - 2 * na;
+                    go = 80 - 3 * na;
+                    fa = 30 - 4 * na;
+                    bi = max(2, 4 + na);
+                    qi = 200;
+                    jg = 32;
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
                 }
-                else {
-                    if(b==14) {
-                        po=1;
-                        xe=(250-3*na);
-                        go=200-4*na;
-                        fa=(70-5*na);
-                        bi=max(2,2+na);
-                        qi=390;
-                        jg=200;
-                        cout<<"ÄãÓöµ½ÁËÑ«ÕÂÄ§¹Ö"<<endl;
-                        if(ppt==0) cout<<"Ñ«ÕÂÌØÊâ¼¼ÄÜ£ºÎÞÊÓ·ÀÓù"<<endl;
-                        if(ppt==1) po=0;
+                else
+                {
+                    if (b == 14)
+                    {
+                        po = 1;
+                        xe = (250 - 3 * na);
+                        go = 200 - 4 * na;
+                        fa = (70 - 5 * na);
+                        bi = max(2, 2 + na);
+                        qi = 390;
+                        jg = 200;
+                        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½Ä§ï¿½ï¿½" << endl;
+                        if (ppt == 0)
+                            cout << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½â¼¼ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½" << endl;
+                        if (ppt == 1)
+                            po = 0;
                     }
                 }
             }
         }
     }
-    cout<<"¶Ô·½¹¥»÷£º"<<go<<" "<<"·ÀÓù£º"<<fa<<" "<<"Ñ«ÕÂÊý£º"<<po<<" ¼ÓÇ¿¹¥»÷£º"<<jg;
-    cout<<" ÑªÁ¿£º"<<xe<<" µôÂäÇ®Êý£º"<<qi<<" ¶ã±ÜÂÊ£º"<<100/bi<<"%"<<endl;
-    cout<<endl;
-    cout<<"1.Ö±½Ó¸Õ"<<endl;
-    cout<<"2.¹ºÂòÐéÈõÒ©Ë®(  $20)ÔÙÕ½"<<endl;
-    cout<<"3.¹ºÂò³¬¼¶ÐéÈõÒ©Ë®(  $300)ÔÙÕ½"<<endl;
-    cout<<"4.ÌÓÅÜ"<<endl;
-    cin>>c;
-    if(c==2) {
-        if(py.mn<20) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+    cout << "ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << go << " "
+         << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << fa << " "
+         << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << po << " ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << jg;
+    cout << " Ñªï¿½ï¿½ï¿½ï¿½" << xe << " ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½" << qi << " ï¿½ï¿½ï¿½ï¿½Ê£ï¿½" << 100 / bi << "%" << endl;
+    cout << endl;
+    cout << "1.Ö±ï¿½Ó¸ï¿½" << endl;
+    cout << "2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò©Ë®(  $20)ï¿½ï¿½Õ½" << endl;
+    cout << "3.ï¿½ï¿½ï¿½ò³¬¼ï¿½ï¿½ï¿½ï¿½ï¿½Ò©Ë®(  $300)ï¿½ï¿½Õ½" << endl;
+    cout << "4.ï¿½ï¿½ï¿½ï¿½" << endl;
+    cin >> c;
+    if (c == 2)
+    {
+        if (py.mn < 20)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn-=20;
-        go-=2*b;
-        xe-=b*2;
-        fa-=b/2;
+        py.mn -= 20;
+        go -= 2 * b;
+        xe -= b * 2;
+        fa -= b / 2;
     }
-    if(c==3){
-        if(py.mn<300) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+    if (c == 3)
+    {
+        if (py.mn < 300)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn-=300;
-        go-=10*b;
-        xe=max(xe-b*10,1);
-        fa=max(fa-b*5,0);
-        bi+=2;
+        py.mn -= 300;
+        go -= 10 * b;
+        xe = max(xe - b * 10, 1);
+        fa = max(fa - b * 5, 0);
+        bi += 2;
     }
-    if(c==4) {
+    if (c == 4)
+    {
         draw();
         return;
     }
-    int op=rand();
-    for(int i=1; i>=0; i++) {
-        cout<<"Round"<<i<<endl<<endl;
-        if(op%2==0) {
-            if(po==0) {
-                cout<<"¹ÖÊÞ·¢¶¯¹¥»÷"<<endl;
-                a=rand();
-                if(a%py.du==0) {
-                    cout<<"Äã³É¹¦¶ãµôÁË¹¥»÷£¡"<<endl<<endl;
-                } else {
-                    cout<<"Äã±»»÷ÖÐÁË£¡"<<endl;
-                    py.xu=py.xu-max(go-py.fe,0);
-                    cout<<"Äã¿ÛÁË"<<max(go-py.fe,0)<<"µã"<<endl<<endl;
-                    py.fe=max(0,py.fe-go/2);
+    int op = rand();
+    for (int i = 1; i >= 0; i++)
+    {
+        cout << "Round" << i << endl
+             << endl;
+        if (op % 2 == 0)
+        {
+            if (po == 0)
+            {
+                cout << "ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                a = rand();
+                if (a % py.du == 0)
+                {
+                    cout << "ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½" << endl
+                         << endl;
                 }
-            } else {
-                cout<<"¹ÖÊÞ·¢¶¯¹¥»÷"<<endl;
-                a=rand();
-                if(a%(py.du+2)==0) {
-                    cout<<"Äã³É¹¦¶ãµôÁË¹¥»÷£¡"<<endl<<endl;
-                } else {
-                    cout<<"Äã±»»÷ÖÐÁË£¡"<<endl;
-                    py.xu=py.xu-go;
-                    cout<<"Äã¿ÛÁË"<<go<<"µã"<<endl<<endl;
-                    py.fe=max(0,py.fe-go/2);
+                else
+                {
+                    cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                    py.xu = py.xu - max(go - py.fe, 0);
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½" << max(go - py.fe, 0) << "ï¿½ï¿½" << endl
+                         << endl;
+                    py.fe = max(0, py.fe - go / 2);
+                }
+            }
+            else
+            {
+                cout << "ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                a = rand();
+                if (a % (py.du + 2) == 0)
+                {
+                    cout << "ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½" << endl
+                         << endl;
+                }
+                else
+                {
+                    cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                    py.xu = py.xu - go;
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½" << go << "ï¿½ï¿½" << endl
+                         << endl;
+                    py.fe = max(0, py.fe - go / 2);
                 }
             }
             delay(1000);
-            cout<<"Äã·¢¶¯¹¥»÷"<<endl;
-            a=rand();
-            if(a%bi==0) {
-                cout<<"¹ÖÊÞ¶ãµôÁËÄã¹¥»÷£¡"<<endl<<endl;
-            } else {
-                a=rand();
-                cout<<"¹ÖÊÞ±»»÷ÖÐÁË£¡"<<endl;
-                if(a%(5-na-tkt)==0) {
-                    cout<<"Äã²úÉúÁËÅ­»ð"<<endl;
-                    if(ktk==0){
-                        xe=xe-max(2*py.gn-fa,0);
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<max(2*py.gn-fa,0)<<"µã"<<endl<<endl;
+            cout << "ï¿½ã·¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            a = rand();
+            if (a % bi == 0)
+            {
+                cout << "ï¿½ï¿½ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½ã¹¥ï¿½ï¿½ï¿½ï¿½" << endl
+                     << endl;
+            }
+            else
+            {
+                a = rand();
+                cout << "ï¿½ï¿½ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                if (a % (5 - na - tkt) == 0)
+                {
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½" << endl;
+                    if (ktk == 0)
+                    {
+                        xe = xe - max(2 * py.gn - fa, 0);
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << max(2 * py.gn - fa, 0) << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    else{
-                        xe=xe-2*py.gn;
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<2*py.gn<<"µã"<<endl<<endl;
+                    else
+                    {
+                        xe = xe - 2 * py.gn;
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << 2 * py.gn << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    fa=max(0,fa-py.gn);
-                } else {
-                    if(ktk==0){
-                        xe=xe-max(py.gn-fa,0);
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<max(py.gn-fa,0)<<"µã"<<endl<<endl;
+                    fa = max(0, fa - py.gn);
+                }
+                else
+                {
+                    if (ktk == 0)
+                    {
+                        xe = xe - max(py.gn - fa, 0);
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << max(py.gn - fa, 0) << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    else{
-                        xe=xe-py.gn;
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<py.gn<<"µã"<<endl<<endl;
+                    else
+                    {
+                        xe = xe - py.gn;
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << py.gn << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    fa=max(0,fa-py.gn/2);
+                    fa = max(0, fa - py.gn / 2);
                 }
             }
-        } else {
-            cout<<"Äã·¢¶¯¹¥»÷"<<endl;
-            a=rand();
-            if(a%bi==0) {
-                cout<<"¹ÖÊÞ¶ãµôÁËÄã¹¥»÷£¡"<<endl<<endl;
-            } else {
-                a=rand();
-                cout<<"¹ÖÊÞ±»»÷ÖÐÁË£¡"<<endl;
-                if(a%(5-na)==0) {
-                    cout<<"Äã²úÉúÁËÅ­»ð"<<endl;
-                    if(ktk==0){
-                        xe=xe-max(2*py.gn-fa,0);
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<max(2*py.gn-fa,0)<<"µã"<<endl<<endl;
+        }
+        else
+        {
+            cout << "ï¿½ã·¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            a = rand();
+            if (a % bi == 0)
+            {
+                cout << "ï¿½ï¿½ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½ã¹¥ï¿½ï¿½ï¿½ï¿½" << endl
+                     << endl;
+            }
+            else
+            {
+                a = rand();
+                cout << "ï¿½ï¿½ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                if (a % (5 - na) == 0)
+                {
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½" << endl;
+                    if (ktk == 0)
+                    {
+                        xe = xe - max(2 * py.gn - fa, 0);
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << max(2 * py.gn - fa, 0) << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    else{
-                        xe=xe-2*py.gn;
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<2*py.gn<<"µã"<<endl<<endl;
+                    else
+                    {
+                        xe = xe - 2 * py.gn;
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << 2 * py.gn << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    fa=max(0,fa-py.gn);
-                } else {
-                    if(ktk==0){
-                        xe=xe-max(py.gn-fa,0);
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<max(py.gn-fa,0)<<"µã"<<endl<<endl;
+                    fa = max(0, fa - py.gn);
+                }
+                else
+                {
+                    if (ktk == 0)
+                    {
+                        xe = xe - max(py.gn - fa, 0);
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << max(py.gn - fa, 0) << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    else{
-                        xe=xe-py.gn;
-                        cout<<"¹ÖÊÞ¿ÛÁË"<<py.gn<<"µã"<<endl<<endl;
+                    else
+                    {
+                        xe = xe - py.gn;
+                        cout << "ï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½" << py.gn << "ï¿½ï¿½" << endl
+                             << endl;
                     }
-                    fa=max(0,fa-py.gn/2);
+                    fa = max(0, fa - py.gn / 2);
                 }
             }
             delay(1000);
-            if(po==0) {
-                cout<<"¹ÖÊÞ·¢¶¯¹¥»÷"<<endl;
-                a=rand();
-                if(a%py.du==0) {
-                    cout<<"Äã³É¹¦¶ãµôÁË¹¥»÷£¡"<<endl<<endl;
-                } else {
-                    cout<<"Äã±»»÷ÖÐÁË£¡"<<endl;
-                    py.xu=py.xu-max(go-py.fe,0);
-                    cout<<"Äã¿ÛÁË"<<max(go-py.fe,0)<<"µã"<<endl<<endl;
-                    py.fe=max(0,py.fe-go/2);
+            if (po == 0)
+            {
+                cout << "ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                a = rand();
+                if (a % py.du == 0)
+                {
+                    cout << "ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½" << endl
+                         << endl;
                 }
-            } else {
-                cout<<"¹ÖÊÞ·¢¶¯¹¥»÷"<<endl;
-                a=rand();
-                if(a%(py.du+2)==0) {
-                    cout<<"Äã³É¹¦¶ãµôÁË¹¥»÷£¡"<<endl<<endl;
-                } else {
-                    cout<<"Äã±»»÷ÖÐÁË£¡"<<endl;
-                    py.xu=py.xu-go;
-                    cout<<"Äã¿ÛÁË"<<go<<"µã"<<endl<<endl;
-                    py.fe=max(0,py.fe-go/2);
+                else
+                {
+                    cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                    py.xu = py.xu - max(go - py.fe, 0);
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½" << max(go - py.fe, 0) << "ï¿½ï¿½" << endl
+                         << endl;
+                    py.fe = max(0, py.fe - go / 2);
+                }
+            }
+            else
+            {
+                cout << "ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+                a = rand();
+                if (a % (py.du + 2) == 0)
+                {
+                    cout << "ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½" << endl
+                         << endl;
+                }
+                else
+                {
+                    cout << "ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½" << endl;
+                    py.xu = py.xu - go;
+                    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½" << go << "ï¿½ï¿½" << endl
+                         << endl;
+                    py.fe = max(0, py.fe - go / 2);
                 }
             }
         }
         op++;
         system("pause");
         system("cls");
-        cout<<"¶Ô·½¹¥»÷£º"<<go<<" "<<"·ÀÓù£º"<<fa<<" ÑªÁ¿£º"<<xe<<endl;
-        cout<<"Äã¹¥»÷£º"<<py.gn<<" "<<"·ÀÓù£º"<<py.fe<<" ÑªÁ¿£º"<<py.xu<<endl;
-        if(py.xu<=go&&xe>0&&py.xu>0) {
-            cout<<"ÄãÑªÁ¿²»¶àÁË£¬¼ÌÐøÂð?"<<endl;
-            cout<<"1.¼ÌÐø"<<endl;
-            cout<<"2.ÌÓÅÜ"<<endl;
-            cin>>c;
-            if(c==2) {
+        cout << "ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << go << " "
+             << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << fa << " Ñªï¿½ï¿½ï¿½ï¿½" << xe << endl;
+        cout << "ï¿½ã¹¥ï¿½ï¿½ï¿½ï¿½" << py.gn << " "
+             << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.fe << " Ñªï¿½ï¿½ï¿½ï¿½" << py.xu << endl;
+        if (py.xu <= go && xe > 0 && py.xu > 0)
+        {
+            cout << "ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?" << endl;
+            cout << "1.ï¿½ï¿½ï¿½ï¿½" << endl;
+            cout << "2.ï¿½ï¿½ï¿½ï¿½" << endl;
+            cin >> c;
+            if (c == 2)
+            {
                 draw();
                 return;
             }
         }
-        if(xe<=0)
+        if (xe <= 0)
         {
-            cout<<"ÄãÉ±ËÀÁË¹ÖÊÞ"<<endl<<endl;
-            py.mn+=qi;
-            py.gn+=jg;
-            py.xu=max(1,py.xu);
-            if(po>0)
+            cout << "ï¿½ï¿½É±ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½" << endl
+                 << endl;
+            py.mn += qi;
+            py.gn += jg;
+            py.xu = max(1, py.xu);
+            if (po > 0)
             {
                 system("color 5F");
-                cout<<"¹§Ï²Äã»ñµÃÁ¦Á¿Ñ«ÕÂ£¡"<<endl;
+                cout << "ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½Â£ï¿½" << endl;
                 py.ja++;
-                ppt=1;
+                ppt = 1;
             }
             delay(20000);
             draw();
             return;
         }
-        if(py.xu<=0)
+        if (py.xu <= 0)
         {
-            cout<<"Äã±»É±ËÀÁË"<<endl;
-            pan=101;
+            cout << "ï¿½ã±»É±ï¿½ï¿½ï¿½ï¿½" << endl;
+            pan = 101;
             delay(20000);
             draw();
             return;
         }
     }
 }
-void shang() {
+void shang()
+{
     int c;
     system("cls");
-    goto_xy(0,0);
-    cout<<"Ç®Êý:"<<py.mn<<endl;
-    cout<<"»¶Ó­À´µ½ÉÌ³Ç(ÏÞÂòÒ»Ñù)"<<endl;
-    cout<<"1.ÆÕÍ¨ºìÒ©Ë®($  "<<10-2*na<<",+5)"<<endl;
-    cout<<endl;
-    cout<<"2.¸ß¼¶ºìÒ©Ë®(  $"<<18-3*na<<",+10)"<<endl;
-    cout<<endl;
-    cout<<"3.»ØÂúÄ§Æ¿+Ê¹ÑªÁ¿ÉÏÏÞÎÞÏÞ($  "<<60-5*na<<",55)"<<endl;
-    cout<<endl;
-    cout<<"4.ÆæÝâ¼ú(  $"<<30-5*na<<",+10g)"<<endl;
-    cout<<endl;
+    goto_xy(0, 0);
+    cout << "Ç®ï¿½ï¿½:" << py.mn << endl;
+    cout << "ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½(ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½)" << endl;
+    cout << "1.ï¿½ï¿½Í¨ï¿½ï¿½Ò©Ë®($  " << 10 - 2 * na << ",+5)" << endl;
+    cout << endl;
+    cout << "2.ï¿½ß¼ï¿½ï¿½ï¿½Ò©Ë®(  $" << 18 - 3 * na << ",+10)" << endl;
+    cout << endl;
+    cout << "3.ï¿½ï¿½ï¿½ï¿½Ä§Æ¿+Ê¹Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½($  " << 60 - 5 * na << ",55)" << endl;
+    cout << endl;
+    cout << "4.ï¿½ï¿½ï¿½ï¿½ï¿½(  $" << 30 - 5 * na << ",+10g)" << endl;
+    cout << endl;
 
-    if(hh==0) 
+    if (hh == 0)
     {
-        cout<<"5.ËÀÍöÊ¥Æ÷Ö®½Ó¹ÇÄ¾Ä§ÕÈ($  "<<130-5*na<<",+75g)"<<endl;
-        cout<<endl;
+        cout << "5.ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Ö®ï¿½Ó¹ï¿½Ä¾Ä§ï¿½ï¿½($  " << 130 - 5 * na << ",+75g)" << endl;
+        cout << endl;
     }
-    if(jj==0) 
+    if (jj == 0)
     {
-        cout<<"6.ËÀÍöÊ¥Æ÷Ö®Ä§·¨Ê¯(  $"<<130-5*na<<",+90,+50f)"<<endl;
-        cout<<endl;
+        cout << "6.ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Ö®Ä§ï¿½ï¿½Ê¯(  $" << 130 - 5 * na << ",+90,+50f)" << endl;
+        cout << endl;
     }
-    if(kk==0) 
+    if (kk == 0)
     {
-        cout<<"7.ËÀÍöÊ¥Æ÷Ö®ÒþÐÎÒÂ($  "<<130-5*na<<",-4b,+20f)"<<endl;
-        cout<<endl;
+        cout << "7.ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½($  " << 130 - 5 * na << ",-4b,+20f)" << endl;
+        cout << endl;
     }
-    cout<<"8.·ÀÓùÒ©Ë®(  $"<<40-5*na<<",+20f)"<<endl;
-    cout<<endl;
-    cout<<"9.¶ã±ÜÒ©Ë®($  "<<60-5*na<<",-2b)"<<endl;
-    cout<<endl;
-    cout<<"10.³¬¼¶ºìÒ©Ë®+Ê¹ÑªÁ¿ÉÏÏÞÎÞÏÞ(  $"<<120-5*na<<",+120)"<<endl;
-    cout<<"ÆäËüÊýÖµ·µ»Ø"<<endl;
-    cout<<endl;
-    cout<<"²Æ¸»Ñ«ÕÂ:·ÇÂôÆ·(ÐèÒª¼¯ÆëËÀÍöÊ¥Æ÷)"<<endl;
-    cin>>c;
-    if(c==1) {
-        if(py.mn<10-2*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(10-2*na);
-        if(pp==0) py.xu=min(50,py.xu+5);
-        else py.xu+=5;
-    }
-    if(c==2) {
-        if(py.mn<18-3*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            //pan=101;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(18-3*na);
-        if(pp==0) py.xu=min(50,py.xu+10);
-        else py.xu+=10;
-    }
-    if(c==3) {
-        if(py.mn<80-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(80-5*na);
-        pp=1;
-        py.xu=55;
-    }
-    if(c==4) {
-        if(py.mn<30-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(30-5*na);
-        py.gn+=10;
-    }
-    if(c==5&&hh==0) {
-        if(py.mn<130-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(130-5*na);
-        py.gn+=75;
-        hh=1;
-    }
-    if(c==6&&jj==0) {
-        if(py.mn<130-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(130-5*na);
-        pp=1;
-        py.xu+=90;
-        py.fe+=50;
-        jj=1;
-    }
-    if(c==7&&kk==0) {
-        if(py.mn<130-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(130-5*na);
-        py.du=max(2,py.du-4);
-        py.fe+=20;
-        kk=1;
-    }
-    if(c==8) {
-        if(py.mn<40-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            delay(20000);
-            system("cls");
-            draw();
-            return;
-        }
-        py.mn=py.mn-(40-5*na);
-        py.fe+=20;
-    }
-    if(c==9)
+    cout << "8.ï¿½ï¿½ï¿½ï¿½Ò©Ë®(  $" << 40 - 5 * na << ",+20f)" << endl;
+    cout << endl;
+    cout << "9.ï¿½ï¿½ï¿½Ò©Ë®($  " << 60 - 5 * na << ",-2b)" << endl;
+    cout << endl;
+    cout << "10.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò©Ë®+Ê¹Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(  $" << 120 - 5 * na << ",+120)" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << endl;
+    cout << "ï¿½Æ¸ï¿½Ñ«ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½Æ·(ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½)" << endl;
+    cin >> c;
+    if (c == 1)
     {
-        if(py.mn<60-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+        if (py.mn < 10 - 2 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn=py.mn-(60-5*na);
-        py.du=max(2,py.du-2);
+        py.mn = py.mn - (10 - 2 * na);
+        if (pp == 0)
+            py.xu = min(50, py.xu + 5);
+        else
+            py.xu += 5;
     }
-    if(c==10) {
-        if(py.mn<120-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
-            //pan=101;
+    if (c == 2)
+    {
+        if (py.mn < 18 - 3 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            // pan=101;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn=py.mn-(120-5*na);
-        py.xu=py.xu+120;
+        py.mn = py.mn - (18 - 3 * na);
+        if (pp == 0)
+            py.xu = min(50, py.xu + 10);
+        else
+            py.xu += 10;
     }
-    if(jj==1&&hh==1&&kk==1&&icp==0) {
+    if (c == 3)
+    {
+        if (py.mn < 80 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (80 - 5 * na);
+        pp = 1;
+        py.xu = 55;
+    }
+    if (c == 4)
+    {
+        if (py.mn < 30 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (30 - 5 * na);
+        py.gn += 10;
+    }
+    if (c == 5 && hh == 0)
+    {
+        if (py.mn < 130 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (130 - 5 * na);
+        py.gn += 75;
+        hh = 1;
+    }
+    if (c == 6 && jj == 0)
+    {
+        if (py.mn < 130 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (130 - 5 * na);
+        pp = 1;
+        py.xu += 90;
+        py.fe += 50;
+        jj = 1;
+    }
+    if (c == 7 && kk == 0)
+    {
+        if (py.mn < 130 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (130 - 5 * na);
+        py.du = max(2, py.du - 4);
+        py.fe += 20;
+        kk = 1;
+    }
+    if (c == 8)
+    {
+        if (py.mn < 40 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (40 - 5 * na);
+        py.fe += 20;
+    }
+    if (c == 9)
+    {
+        if (py.mn < 60 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (60 - 5 * na);
+        py.du = max(2, py.du - 2);
+    }
+    if (c == 10)
+    {
+        if (py.mn < 120 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+            // pan=101;
+            delay(20000);
+            system("cls");
+            draw();
+            return;
+        }
+        py.mn = py.mn - (120 - 5 * na);
+        py.xu = py.xu + 120;
+    }
+    if (jj == 1 && hh == 1 && kk == 1 && icp == 0)
+    {
         system("color 1C");
-        cout<<"¹§Ï²»ñµÃ²Æ¸»Ñ«ÕÂ"<<endl;
+        cout << "ï¿½ï¿½Ï²ï¿½ï¿½Ã²Æ¸ï¿½Ñ«ï¿½ï¿½" << endl;
         py.ja++;
-        icp=1;
+        icp = 1;
     }
     system("pause");
     draw();
 }
-void jin(int a) {
-    goto_xy(0,bigger+2);
-    cout<<"¹§Ï²"<<endl;
-    py.gn+=2;
-    py.mn+=5;
-    if(a%3==0) {
-        cout<<"»ñµÃÆÕÍ¨¼Ó³É"<<endl;
-        py.gn+=5;
-        py.mn+=15;
-        py.fe+=2;
-        if(pp==0) py.xu=min(50,py.xu+5);
-        else py.xu+=5;
+void jin(int a)
+{
+    goto_xy(0, bigger + 2);
+    cout << "ï¿½ï¿½Ï²" << endl;
+    py.gn += 2;
+    py.mn += 5;
+    if (a % 3 == 0)
+    {
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ó³ï¿½" << endl;
+        py.gn += 5;
+        py.mn += 15;
+        py.fe += 2;
+        if (pp == 0)
+            py.xu = min(50, py.xu + 5);
+        else
+            py.xu += 5;
     }
-    if(a%(17-3*na)==0) {
-        cout<<"»ñµÃ¸ß¼¶¼Ó³É"<<endl;
-        py.gn+=12;
-        py.mn+=35;
-        py.fe+=5;
-        if(py.du-1>1) py.du-=1;
-        if(pp==0) py.xu=min(50,py.xu+5);
-        else py.xu+=15;
+    if (a % (17 - 3 * na) == 0)
+    {
+        cout << "ï¿½ï¿½Ã¸ß¼ï¿½ï¿½Ó³ï¿½" << endl;
+        py.gn += 12;
+        py.mn += 35;
+        py.fe += 5;
+        if (py.du - 1 > 1)
+            py.du -= 1;
+        if (pp == 0)
+            py.xu = min(50, py.xu + 5);
+        else
+            py.xu += 15;
     }
-    if(a%(43-8*na)==0) {
-        cout<<"»ñµÃ¶¥¼¶¼Ó³É"<<endl;
-        py.gn+=25;
-        py.mn+=75;
-        py.fe+=11;
-        if(py.du-3>1) py.du-=3;
-        else py.du=2;
-        pp=1;
-        py.xu+=50;
+    if (a % (43 - 8 * na) == 0)
+    {
+        cout << "ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ó³ï¿½" << endl;
+        py.gn += 25;
+        py.mn += 75;
+        py.fe += 11;
+        if (py.du - 3 > 1)
+            py.du -= 3;
+        else
+            py.du = 2;
+        pp = 1;
+        py.xu += 50;
     }
-    int akak=79-16*na;
-    if(ppt==1) akak=2;
-    if(a%akak==0&&dd==0) {
+    int akak = 79 - 16 * na;
+    if (ppt == 1)
+        akak = 2;
+    if (a % akak == 0 && dd == 0)
+    {
         system("color 2B");
-        cout<<"»ñµÃÔËÆøÑ«ÕÂ"<<endl;
-        py.gn+=299;
-        py.mn+=9999;
-        py.fe+=299;
-        py.du=1;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½" << endl;
+        py.gn += 299;
+        py.mn += 9999;
+        py.fe += 299;
+        py.du = 1;
         py.ja++;
-        py.xu+=1000;
-        dd=1;
-        pp=1;
+        py.xu += 1000;
+        dd = 1;
+        pp = 1;
     }
     system("pause");
     draw();
 }
-void pskill(){
+void pskill()
+{
     int c;
     system("cls");
-    goto_xy(0,0);
-    cout<<"Ç®Êý:"<<py.mn<<endl;
-    cout<<"»¶Ó­À´µ½¼¼ÄÜÉÌµê(ÏÞÂòÒ»Ñù)"<<endl;
-    cout<<"1.¹¥»÷ÆÆ·ÀÒ©£ºÎÞÏÞÊ¹ÓÃ($  "<<200-5*na<<")"<<endl;
-    cout<<endl;
-    cout<<"2.±©»÷ÂÊÔö¸ßÒ©(  $"<<100-3*na<<",±ÈÀý·ÖÄ¸-1)"<<endl;
-    cout<<endl;
-    cout<<"3.ÏÂ´Î±ØÓöµ½Ñ«ÕÂÄ§¹Ö( $100 )"<<endl;
-    cout<<endl;
-    cout<<"ÆäËü¼ü·µ»Ø"<<endl;
-    cout<<endl;
-    cin>>c;
-    if(c==1) {
-        if(py.mn<200-5*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+    goto_xy(0, 0);
+    cout << "Ç®ï¿½ï¿½:" << py.mn << endl;
+    cout << "ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½(ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½)" << endl;
+    cout << "1.ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½($  " << 200 - 5 * na << ")" << endl;
+    cout << endl;
+    cout << "2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò©(  $" << 100 - 3 * na << ",ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸-1)" << endl;
+    cout << endl;
+    cout << "3.ï¿½Â´Î±ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½Ä§ï¿½ï¿½( $100 )" << endl;
+    cout << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << endl;
+    cin >> c;
+    if (c == 1)
+    {
+        if (py.mn < 200 - 5 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn=py.mn-(200-5*na);
-        ktk=1;
+        py.mn = py.mn - (200 - 5 * na);
+        ktk = 1;
     }
-    if(c==2) {
-        if(py.mn<100-3*na) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+    if (c == 2)
+    {
+        if (py.mn < 100 - 3 * na)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn=py.mn-(100-3*na);
+        py.mn = py.mn - (100 - 3 * na);
         tkt++;
-        if(5-na-tkt<1) tkt--;
+        if (5 - na - tkt < 1)
+            tkt--;
     }
-    if(c==3) {
-        if(py.mn<100) {
-            cout<<"Ã»Ç®»¹À´£¡"<<endl;
+    if (c == 3)
+    {
+        if (py.mn < 100)
+        {
+            cout << "Ã»Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             delay(20000);
             system("cls");
             draw();
             return;
         }
-        py.mn=py.mn-100;
-        ttt=1;
+        py.mn = py.mn - 100;
+        ttt = 1;
     }
     system("pause");
     draw();
 }
-void bang(){
+void bang()
+{
     system("cls");
-    goto_xy(0,0);
-    cout<<"ÕýÔÚ¼ÓÔØ..."<<endl;
-    for(int i=9;i>=1;i--){
-        cout<<"Ê£Óà"<<i<<"Ãë"<<endl;
+    goto_xy(0, 0);
+    cout << "ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½..." << endl;
+    for (int i = 9; i >= 1; i--)
+    {
+        cout << "Ê£ï¿½ï¿½" << i << "ï¿½ï¿½" << endl;
         delay(15000);
-        goto_xy(0,1);
+        goto_xy(0, 1);
     }
     system("cls");
-    goto_xy(0,0);
-    cout<<"1.ÉÌ³Ç(S)"<<endl;
-    cout<<"¿ÉÒÔ¹ºÂòÉÌÆ·ÒÔÔö¼Ó×Ô¼ºµÄ·ÀÓùÁ¦¡¢ÑªÁ¿¡¢¶ã±ÜÂÊÕâÑùµÄ»ù´¡ÄÜÁ¦"<<endl;
-    cout<<"¼¯ÆëÆäÖÐµÄËÀÍöÊ¥Æ÷»ñµÃ²Æ¸»Ñ«ÕÂ"<<endl;
-    cout<<"2.¼¼ÄÜÉÌµê(P)"<<endl;
-    cout<<"¿ÉÒÔ¹ºÂòÉÌÆ·ÒÔÌáÉý±©»÷ÂÊ¡¢ÆÆ·ÀÄÜÁ¦"<<endl;
-    cout<<"3.¿ó¶´(K)"<<endl;
-    cout<<"¿ÉÒÔ»ñµÃ´óÁ¿Ç®ÒÔ¹ºÂòÉÌ³ÇºÍ¼¼ÄÜÉÌµêµÄÉÌÆ·"<<endl;
-    cout<<"¿ÉÄÜ±»ÔÒÖÐ£¬»á¿ÛÑªºÍ¶ªÇ®"<<endl;
-    cout<<"4.±¦Ïä(J)"<<endl;
-    cout<<"±¦Ïä×Ô¶¯¸½ÔùÒ»Ð©Ç®£¬ÓÐ¼¸ÂÊÔö¸ßÑª¡¢·ÀÓùÁ¦¡¢¶ã±ÜÂÊ£¬ÉõÖÁ»ñµÃÔËÆøÑ«ÕÂ"<<endl;
-    cout<<"5.¹ÖÎï(G)"<<endl;
-    cout<<"´ò°Ü¹ÖÎï»á»ñµÃÇ®ÉõÖÁÁ¦Á¿Ñ«ÕÂ(´òÑ«ÕÂÄ§¹Ö»ñµÃ)"<<endl;
-    cout<<"µ«´ò¹Ö»áµôÑªÉõÖÁËÀÍö(·ÀÓùÁ¦Ö»ÒªÓÐ¾Í»áµÖµ²ÉËº¦£¬µ«»á¿Û¼õ¹¥»÷Á¦µÄ50%)"<<endl;
+    goto_xy(0, 0);
+    cout << "1.ï¿½Ì³ï¿½(S)" << endl;
+    cout << "ï¿½ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½ï¿½ï¿½Ã²Æ¸ï¿½Ñ«ï¿½ï¿½" << endl;
+    cout << "2.ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½(P)" << endl;
+    cout << "ï¿½ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << "3.ï¿½ï¿½(K)" << endl;
+    cout << "ï¿½ï¿½ï¿½Ô»ï¿½Ã´ï¿½ï¿½ï¿½Ç®ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½Ì³ÇºÍ¼ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½Æ·" << endl;
+    cout << "ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ñªï¿½Í¶ï¿½Ç®" << endl;
+    cout << "4.ï¿½ï¿½ï¿½ï¿½(J)" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©Ç®ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½" << endl;
+    cout << "5.ï¿½ï¿½ï¿½ï¿½(G)" << endl;
+    cout << "ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½(ï¿½ï¿½Ñ«ï¿½ï¿½Ä§ï¿½Ö»ï¿½ï¿½)" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»Òªï¿½Ð¾Í»ï¿½Öµï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½50%)" << endl;
     system("pause");
     system("cls");
-    return; 
+    return;
 }
-void cun(){
+void cun()
+{
     int a;
     system("cls");
-    goto_xy(0,0);
-    cout<<"¾¯¸æ£º´æµµ»á½«Ô­´æµµ¸²¸Çµô£¬ÇëÐ¡ÐÄ"<<endl;
-    cout<<"Èç¹ûÊÇLinuxÏµÍ³ÇëÊÖ¶¯½«¸Ãº¯ÊýµÄ¿ØÖÆÌ¨×ªÒÆ¸Ä³É/dev/console¶ø²»ÊÇCON"<<endl;
-    cout<<"ÈçÒª´æµµÇëÁí¿ªÎÄ¼þ¼Ð£¬Ð§¹û¸üºÃ"<<endl;
-    cout<<"´æµµºó»á×Ô¶¯¹Ø±Õ"<<endl;
+    goto_xy(0, 0);
+    cout << "ï¿½ï¿½ï¿½æ£ºï¿½æµµï¿½á½«Ô­ï¿½æµµï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½" << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½LinuxÏµÍ³ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ì¨×ªï¿½Æ¸Ä³ï¿½/dev/consoleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CON" << endl;
+    cout << "ï¿½ï¿½Òªï¿½æµµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð£ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << "ï¿½æµµï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Ø±ï¿½" << endl;
     system("pause");
-    cout<<endl;
-    cout<<"1.ÎÒÒª¼ÌÐø´æµµ"<<endl;
-    cout<<"2.ÎÒ²»´æÁË"<<endl;
-    cin>>a;
-    if(a==2) return;
+    cout << endl;
+    cout << "1.ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½æµµ" << endl;
+    cout << "2.ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    cin >> a;
+    if (a == 2)
+        return;
     system("cls");
-    cout<<"´æµµÖÐ£¬ÇëÉÔºò..."<<endl;
-    freopen("´óÃ°ÏÕ´æµµ.out","w",stdout);
-    cout<<bigger<<endl;
-    cout<<na<<endl;
-    cout<<py.du<<" "<<py.fe<<" "<<py.gn<<" "<<py.ja<<" "<<py.mn<<" "<<py.xu<<endl; 
-    cout<<"5 5 5 5"<<endl;
-    cout<<hh<<" "<<jj<<" "<<kk<<" "<<dd<<" "<<pp<<" "<<icp<<" "<<ppt<<endl;
-    cout<<abc<<endl;
-    cout<<tkt<<" "<<ktk<<endl;
-    cout<<abcd<<" "<<ttt<<endl;
-    freopen("CON","w",stdout);
-    cout<<"´æµµ½áÊø£¡¼´½«Ìø»Ø"<<endl;
+    cout << "ï¿½æµµï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ôºï¿½..." << endl;
+    freopen("ï¿½ï¿½Ã°ï¿½Õ´æµµ.out", "w", stdout);
+    cout << bigger << endl;
+    cout << na << endl;
+    cout << py.du << " " << py.fe << " " << py.gn << " " << py.ja << " " << py.mn << " " << py.xu << endl;
+    cout << "5 5 5 5" << endl;
+    cout << hh << " " << jj << " " << kk << " " << dd << " " << pp << " " << icp << " " << ppt << endl;
+    cout << abc << endl;
+    cout << tkt << " " << ktk << endl;
+    cout << abcd << " " << ttt << endl;
+    freopen("CON", "w", stdout);
+    cout << "ï¿½æµµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
     delay(100000);
     exit(0);
     return;
 }
-void help(){
+void help()
+{
     int a;
     system("cls");
-    goto_xy(0,0);
-    cout<<"»¶Ó­À´µ½Ö÷Ò³"<<endl;
-    cout<<"1.²é¿´°ïÖú"<<endl;
-    cout<<"2.´æµµ"<<endl;
-    cout<<"3.½áÊøÓÎÏ·"<<endl;
-    cout<<"³ý1¡¢2¡¢3µÄÕûÊý-·µ»Ø"<<endl;
-    cin>>a;
-    if(a==1) bang();
-    if(a==2) cun();
-    if(a==3) exit(0);
+    goto_xy(0, 0);
+    cout << "ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³" << endl;
+    cout << "1.ï¿½é¿´ï¿½ï¿½ï¿½ï¿½" << endl;
+    cout << "2.ï¿½æµµ" << endl;
+    cout << "3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·" << endl;
+    cout << "ï¿½ï¿½1ï¿½ï¿½2ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½" << endl;
+    cin >> a;
+    if (a == 1)
+        bang();
+    if (a == 2)
+        cun();
+    if (a == 3)
+        exit(0);
     draw();
 }
-int main() {
-    int a,b;
-    py.xu=50;py.mn=0;py.gn=5;py.du=12;py.fe=0;py.ja=0;
-    //jjj(5,2,5,5,1,1);
-    //jjj(5,1,5,5,2,2);
+int main()
+{
+    int a, b;
+    py.xu = 50;
+    py.mn = 0;
+    py.gn = 5;
+    py.du = 12;
+    py.fe = 0;
+    py.ja = 0;
+    // jjj(5,2,5,5,1,1);
+    // jjj(5,1,5,5,2,2);
     delay(20000);
-    cout<<"ÔÚºÜ¾ÃºÜ¾ÃÒÔÇ°£¬"<<endl;delay(20000);
-    cout<<"ÕâÀïÓÐÒ»×ù¹ÅÀÏµÄÃ°ÏÕ³Ç±¤¡£"<<endl;delay(20000);
-    cout<<"ÕâÀïÓÐ¿ÉÅÂµÄ¹ÖÊÞ(G)£¬Î£ÏÕµÄ¿ó¶´(K)£¬·±»ªµÄÉÌ³¡(S)£¬ÃØÃÜµÄ±¦Ïä(J)ºÍ¼¼ÄÜÉÌµê(P)¡£"<<endl;delay(20000);
-    cout<<"±¤Ö÷ÈËËµÖ»Òª¼¯ÆëÔÚËÄ¸öµØ·½(²»º¬P)Âñ²ØµÄÑ«ÕÂÖÐµÄÈý¸ö¾Í¿ÉÒÔ³å³ö±¤ÀÝ"<<endl;delay(20000);
-    cout<<"ÏÖÔÚ£¬ÓÉÎÒÀ´¸øÄãÃÇÌáÊ¾"<<endl;delay(20000);
-    cout<<"Ê®ºä¿ó¶´Ö¤ÓÂ¸Ò£¬"<<endl;delay(20000);
-    cout<<"´ò°Ü¹ÖÊÞÄã¼èÄÑ¡£"<<endl;delay(20000);
-    cout<<"ÈôÏë´ò¹Ö²»¼èÄÑ£¬"<<endl;delay(20000);
-    cout<<"¼¼ÄÜÉÌµêÀ´¿´¿´¡£"<<endl;delay(20000); 
-    cout<<"ÔËÆøÑ«ÕÂÏäÀï°²£¬"<<endl;delay(20000);
-    cout<<"Ê¥Æ÷ÆëÈ«¹²¿ñ»¶¡£"<<endl;delay(20000);
-    cout<<"Ï£ÍûÄãÄÜ´ÓÊ«ÖÐµÃµ½ÆôÊ¾£¬ÔÙ¼û¡£"<<endl;delay(20000);
+    cout << "ï¿½ÚºÜ¾ÃºÜ¾ï¿½ï¿½ï¿½Ç°ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ã°ï¿½Õ³Ç±ï¿½ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ÂµÄ¹ï¿½ï¿½ï¿½(G)ï¿½ï¿½Î£ï¿½ÕµÄ¿ï¿½(K)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½(S)ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ±ï¿½ï¿½ï¿½(J)ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ìµï¿½(P)ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÖ»Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ø·ï¿½(ï¿½ï¿½ï¿½ï¿½P)ï¿½ï¿½Øµï¿½Ñ«ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾" << endl;
+    delay(20000);
+    cout << "Ê®ï¿½ï¿½ï¿½Ö¤ï¿½Â¸Ò£ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½Ñ£ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "ï¿½ï¿½ï¿½ï¿½Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï°²ï¿½ï¿½" << endl;
+    delay(20000);
+    cout << "Ê¥ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ñ»¶¡ï¿½" << endl;
+    delay(20000);
+    cout << "Ï£ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½Ê«ï¿½ÐµÃµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù¼ï¿½ï¿½ï¿½" << endl;
+    delay(20000);
     system("pause");
     system("cls");
-    cout<<"ÄãÏëÊ¹ÓÃ´æµµÂð?"<<endl;
-    cout<<"1.Ê¹ÓÃ"<<endl;
-    cout<<"2.²»Ê¹ÓÃ»òÃ»ÓÐ"<<endl;
-    cin>>a;
-    if(a==1){
+    cout << "ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã´æµµï¿½ï¿½?" << endl;
+    cout << "1.Ê¹ï¿½ï¿½" << endl;
+    cout << "2.ï¿½ï¿½Ê¹ï¿½Ã»ï¿½Ã»ï¿½ï¿½" << endl;
+    cin >> a;
+    if (a == 1)
+    {
         system("cls");
-        cout<<"³Ç±¤µÄ´óÃÅÎªÄú´ò¿ª¡ª¡ª"<<endl;
-        cout<<endl;
-        cout<<"°æ±¾£º0.4"<<endl;
+        cout << "ï¿½Ç±ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ò¿ª¡ï¿½ï¿½ï¿½" << endl;
+        cout << endl;
+        cout << "ï¿½æ±¾ï¿½ï¿½0.4" << endl;
         system("pause");
         system("cls");
-        freopen("´óÃ°ÏÕ´æµµ.out","r",stdin);
-        cin>>bigger;
-        cin>>na;
-        cin>>py.du>>py.fe>>py.gn>>py.ja>>py.mn>>py.xu;
-        cin>>h>>p>>l>>t;
-        cin>>hh>>jj>>kk>>dd>>pp>>icp>>ppt;
-        cin>>abc;
-        cin>>tkt>>ktk;
-        cin>>abcd>>ttt;
-        for(int i=0;i<bigger;i++){
-            for(int j=0;j<bigger;j++){
-                if(i!=0||j!=0) xy[i][j]='*';
-                else xy[i][j]='H';
-                if(i==h&&j==p) xy[i][j]='@';
-                printf("%c",xy[i][j]);
-                if(j==bigger-1) cout<<endl;
+        freopen("ï¿½ï¿½Ã°ï¿½Õ´æµµ.out", "r", stdin);
+        cin >> bigger;
+        cin >> na;
+        cin >> py.du >> py.fe >> py.gn >> py.ja >> py.mn >> py.xu;
+        cin >> h >> p >> l >> t;
+        cin >> hh >> jj >> kk >> dd >> pp >> icp >> ppt;
+        cin >> abc;
+        cin >> tkt >> ktk;
+        cin >> abcd >> ttt;
+        for (int i = 0; i < bigger; i++)
+        {
+            for (int j = 0; j < bigger; j++)
+            {
+                if (i != 0 || j != 0)
+                    xy[i][j] = '*';
+                else
+                    xy[i][j] = 'H';
+                if (i == h && j == p)
+                    xy[i][j] = '@';
+                printf("%c", xy[i][j]);
+                if (j == bigger - 1)
+                    cout << endl;
             }
         }
-        cout<<"¹¥»÷£º"<<py.gn<<" "<<"·ÀÓù£º"<<py.fe<<" "<<"Ñ«ÕÂÊý£º"<<py.ja;
-        cout<<" ÑªÁ¿£º"<<py.xu<<" Ç®Êý£º"<<py.mn<<" ¶ã±ÜÂÊ£º"<<100/py.du<<"%"<<endl;
-        cout<<"Èç¹ûÏë ÔÝÍ£/¼ÌÐø Çë°´Enter¼ü¡££¨ÆäËüÒ»Ð©¼ü¹À¼ÆÒ²ÐÐ£¬µ«½¨ÒéEnter)"<<endl; 
-        freopen("CON","r",stdin);
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.gn << " "
+             << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.fe << " "
+             << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.ja;
+        cout << " Ñªï¿½ï¿½ï¿½ï¿½" << py.xu << " Ç®ï¿½ï¿½ï¿½ï¿½" << py.mn << " ï¿½ï¿½ï¿½ï¿½Ê£ï¿½" << 100 / py.du << "%" << endl;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í£/ï¿½ï¿½ï¿½ï¿½ ï¿½ë°´Enterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Enter)" << endl;
+        freopen("CON", "r", stdin);
     }
-    else{
-        cout<<"Ñ¡ÔñÄÑ¶È"<<endl;delay(20000);
-        cout<<"1.µØÓü"<<endl;delay(20000);
-        cout<<"2.À§ÄÑ"<<endl;delay(20000);
-        cout<<"3.ÆÕÍ¨"<<endl;delay(20000);
-        cout<<"4.¼òµ¥"<<endl;delay(20000);
-        cout<<"5.ÈëÃÅ"<<endl;delay(20000);
-        cin>>a;
-        if(a==1) na=-3;
-        if(a==2) na=-1;
-        if(a==3) na=0;
-        if(a==4) na=1;
-        if(a==5) 
+    else
+    {
+        cout << "Ñ¡ï¿½ï¿½ï¿½Ñ¶ï¿½" << endl;
+        delay(20000);
+        cout << "1.ï¿½ï¿½ï¿½ï¿½" << endl;
+        delay(20000);
+        cout << "2.ï¿½ï¿½ï¿½ï¿½" << endl;
+        delay(20000);
+        cout << "3.ï¿½ï¿½Í¨" << endl;
+        delay(20000);
+        cout << "4.ï¿½ï¿½" << endl;
+        delay(20000);
+        cout << "5.ï¿½ï¿½ï¿½ï¿½" << endl;
+        delay(20000);
+        cin >> a;
+        if (a == 1)
+            na = -3;
+        if (a == 2)
+            na = -1;
+        if (a == 3)
+            na = 0;
+        if (a == 4)
+            na = 1;
+        if (a == 5)
         {
-            pp=1;
-            na=3;
+            pp = 1;
+            na = 3;
         }
-        if(a==888)
+        if (a == 888)
         {
-            na=5;
-            pp=1;
-            py.mn=390;
-            py.gn=9999;
-            py.fe=10000;
-            py.du=2;
-            py.xu=8812345;
-            py.ja=1;
+            na = 5;
+            pp = 1;
+            py.mn = 390;
+            py.gn = 9999;
+            py.fe = 10000;
+            py.du = 2;
+            py.xu = 8812345;
+            py.ja = 1;
         }
-        if(a>=6&&a!=888||a<=0)
+        if (a >= 6 && a != 888 || a <= 0)
         {
-           system("shutdown -c \"ÄãÎ¥·´ÁË¹æÔò£¬ÊÜµ½³Í·£¡£\" -s -f -t 60");
-           system("pause");
-           system("shutdown -a");
-            na=-10;
+            system("shutdown -c \"ï¿½ï¿½Î¥ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½Í·ï¿½ï¿½ï¿½\" -s -f -t 60");
+            system("pause");
+            system("shutdown -a");
+            na = -10;
         }
-        system("cls"); 
-        cout<<"ÇëÊäÈëÄãÏëÒªµÄ³Ç±¤´óÐ¡£¨´óÓÚ7Ð¡ÓÚµÈÓÚ20)"<<endl;
-        cin>>bigger;
-        if(bigger<7) bigger=7;
-        if(bigger>20) bigger=20;
-        cout<<"³Ç±¤µÄ´óÃÅÎªÄú´ò¿ª¡ª¡ª"<<endl;
-        cout<<endl;
-        cout<<"°æ±¾£º0.4"<<endl;
+        system("cls");
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä³Ç±ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7Ð¡ï¿½Úµï¿½ï¿½ï¿½20)" << endl;
+        cin >> bigger;
+        if (bigger < 7)
+            bigger = 7;
+        if (bigger > 20)
+            bigger = 20;
+        cout << "ï¿½Ç±ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ò¿ª¡ï¿½ï¿½ï¿½" << endl;
+        cout << endl;
+        cout << "ï¿½æ±¾ï¿½ï¿½0.4" << endl;
         system("pause");
         system("cls");
         srand((unsigned)time(NULL));
-        a=rand()%bigger;
-        b=rand()%bigger;
-        while(a==0&&b==0){
-            a=rand()%bigger;
-            b=rand()%bigger;
+        a = rand() % bigger;
+        b = rand() % bigger;
+        while (a == 0 && b == 0)
+        {
+            a = rand() % bigger;
+            b = rand() % bigger;
         }
-        for(int i=0; i<bigger; i++) {
-            for(int j=0; j<bigger; j++) {
-                if(i!=0||j!=0) xy[i][j]='*';
-                else xy[i][j]='H';
-                if(i==a&&j==b) {
-                    xy[i][j]='@';
+        for (int i = 0; i < bigger; i++)
+        {
+            for (int j = 0; j < bigger; j++)
+            {
+                if (i != 0 || j != 0)
+                    xy[i][j] = '*';
+                else
+                    xy[i][j] = 'H';
+                if (i == a && j == b)
+                {
+                    xy[i][j] = '@';
                 }
-                printf("%c",xy[i][j]);
-                if(j==bigger-1) cout<<endl;
+                printf("%c", xy[i][j]);
+                if (j == bigger - 1)
+                    cout << endl;
             }
         }
-        cout<<"¹¥»÷£º"<<py.gn<<" "<<"·ÀÓù£º"<<py.fe<<" "<<"Ñ«ÕÂÊý£º"<<py.ja;
-        cout<<" ÑªÁ¿£º"<<py.xu<<" Ç®Êý£º"<<py.mn<<" ¶ã±ÜÂÊ£º"<<100/py.du<<"%"<<endl;
-        cout<<"Èç¹ûÏë ÔÝÍ£/¼ÌÐø Çë°´Enter¼ü¡££¨ÆäËüÒ»Ð©¼ü¹À¼ÆÒ²ÐÐ£¬µ«½¨ÒéEnter)"<<endl; 
-        //jjj(0,0,b,b,a,a);
-        h=l=b;
-        p=t=a;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.gn << " "
+             << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.fe << " "
+             << "Ñ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << py.ja;
+        cout << " Ñªï¿½ï¿½ï¿½ï¿½" << py.xu << " Ç®ï¿½ï¿½ï¿½ï¿½" << py.mn << " ï¿½ï¿½ï¿½ï¿½Ê£ï¿½" << 100 / py.du << "%" << endl;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Í£/ï¿½ï¿½ï¿½ï¿½ ï¿½ë°´Enterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Enter)" << endl;
+        // jjj(0,0,b,b,a,a);
+        h = l = b;
+        p = t = a;
     }
-    while(1) {
+    while (1)
+    {
         keyDown();
-        l=h;
-        t=p;
-        if(pan==1) {
-            a=rand();
+        l = h;
+        t = p;
+        if (pan == 1)
+        {
+            a = rand();
             jin(a);
             a4--;
         }
-        if(pan==2) {
-            a=rand();
+        if (pan == 2)
+        {
+            a = rand();
             kuang(a);
             a1--;
         }
-        if(pan==3) {
+        if (pan == 3)
+        {
             shang();
             a3--;
         }
-        if(pan==4) {
-            a=rand();
+        if (pan == 4)
+        {
+            a = rand();
             guai(a);
             a2--;
         }
-        if(pan==5){
+        if (pan == 5)
+        {
             pskill();
             a5--;
         }
-        if(pan==6) help();
-        if(pan==101) return 0;
-        if(py.xu<0) {
-            cout<<"ÄãËÀÁË"<<endl;
+        if (pan == 6)
+            help();
+        if (pan == 101)
+            return 0;
+        if (py.xu < 0)
+        {
+            cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
             return 0;
         }
-        if(py.ja==3&&abcd==0)
+        if (py.ja == 3 && abcd == 0)
         {
             system("cls");
-            cout<<"1.»ñÊ¤"<<endl;
-            cout<<"2.¼ÌÐø»ñµÃµÚËÄÑ«ÕÂ"<<endl;
-            cin>>a;
-            if(a==1)
+            cout << "1.ï¿½ï¿½Ê¤" << endl;
+            cout << "2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ñ«ï¿½ï¿½" << endl;
+            cin >> a;
+            if (a == 1)
             {
-                for(int i=300;i>=1;i--)
+                for (int i = 300; i >= 1; i--)
                 {
-                    cout<<"ÄãÓ®ÁË£¡";
-                    for(int j=1;j<=i;j++)
+                    cout << "ï¿½ï¿½Ó®ï¿½Ë£ï¿½";
+                    for (int j = 1; j <= i; j++)
                     {
                         printf(" ");
                     }
@@ -1095,16 +1353,16 @@ int main() {
             }
             else
             {
-                abcd=1;
+                abcd = 1;
                 draw();
             }
-        } 
-        if(py.ja==4)
+        }
+        if (py.ja == 4)
         {
-            for(int i=400;i>=1;i--)
+            for (int i = 400; i >= 1; i--)
             {
-                cout<<"ÄãÓ®ÁË£¡";
-                for(int j=1;j<=i;j++)
+                cout << "ï¿½ï¿½Ó®ï¿½Ë£ï¿½";
+                for (int j = 1; j <= i; j++)
                 {
                     printf(" ");
                 }
@@ -1112,21 +1370,26 @@ int main() {
 
             break;
         }
-        pan=0;
+        pan = 0;
     }
     system("pause");
     system("cls");
-    cout<<"Äã³É¹¦ÌÓ³öÁË±¤ÀÝ"<<endl<<endl;
+    cout << "ï¿½ï¿½É¹ï¿½ï¿½Ó³ï¿½ï¿½Ë±ï¿½ï¿½ï¿½" << endl
+         << endl;
     system("pause");
-    while(1){
-        cout<<"ÒªÔÙÀ´Ò»±é¡°ÄãÓ®ÁË¡±Âð£¿°´1¼ÌÐø"<<endl; 
-        cin>>a;
-        if(a!=1) break;
+    while (1)
+    {
+        cout << "Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½é¡°ï¿½ï¿½Ó®ï¿½Ë¡ï¿½ï¿½ð£¿°ï¿½1ï¿½ï¿½ï¿½ï¿½" << endl;
+        cin >> a;
+        if (a != 1)
+            break;
         system("cls");
-        for(int i=rand()%800;i>=1;i--){
-            cout<<"ÄãÓ®ÁË£¡";
-            for(int j=1;j<=i;j++) printf(" ");
+        for (int i = rand() % 800; i >= 1; i--)
+        {
+            cout << "ï¿½ï¿½Ó®ï¿½Ë£ï¿½";
+            for (int j = 1; j <= i; j++)
+                printf(" ");
         }
-        system("pause"),system("cls");
+        system("pause"), system("cls");
     }
 }

@@ -4,11 +4,11 @@
 
 [Chinese](https://gitee.com/zrc4889/cpp-code/blob/master/README.md) | [English](https://gitee.com/zrc4889/cpp-code/blob/master/README.en.md)
 
-### introduce
+### Introduce
 The road to C++ learning, a repository for writing code
 
-### connect
+### Connect
 My Luogu: [Portal](https://www.luogu.com.cn/user/523217)
 
-### help
+### Help
 Bow down to the boss [Answer questions here](https://gitee.com/zrc4889/cpp-code/issues)!
