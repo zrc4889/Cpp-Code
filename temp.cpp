@@ -1,29 +1,37 @@
-#include <stdio.h>
-
-int main() {
-    int a, b, c;
-    int gap_1, gap_2;
-    scanf("%d %d %d", &a, &b, &c);
-    gap_1 = b - a - 1;
-    gap_2 = c - b - 1;
-    int t = gap_1 - gap_2;
-    if (gap_1 == 0 && gap_2 == 0)
-        printf("0\n0\n");
-
-    else if (gap_1 == 1 || gap_2 == 1) {
-        printf("1\n");
-        if (t > 0)
-            printf("%d", gap_1);
-        else
-            printf("%d", gap_1);
+#include <bits/stdc++.h>
+using namespace std;
+int n, k;
+int c1 = 0;
+int a[11][21], c[11][21];
+int main()
+{
+    scanf("%d%d", &k, &n);
+    for (int i = 1; i <= k; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            scanf("%d", &a[i][j]);
+            c[i][a[i][j]] = j; //第i天第j头奶牛的排名
+        }
     }
-
-    else {
-        printf("2\n");
-        if (t > 0)
-            printf("%d", gap_1);
-        else
-            printf("%d", gap_2);
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            int cnt = 0; //内部计数器
+            for (int x = 1; x <= k; x++)
+            {
+                if (c[x][i] > c[x][j])
+                {
+                    cnt++;
+                }
+            }
+            if (cnt == k) //每一天排名都一致，可以算作是一致的一对
+            {
+                c1++;
+            }
+        }
     }
+    printf("%d", c1);
     return 0;
 }
