@@ -3,7 +3,7 @@ using namespace std;
 int main()
 {
     char temp;
-    int bx, by, lx, ly, rx, ry;
+    int xB, xL, xR, yB, yL, yR;
     for (int i = 1; i <= 10; i++)
     {
         for (int j = 1; j <= 10; j++)
@@ -11,19 +11,18 @@ int main()
             cin >> temp;
             if (temp == 'B')
             {
-                bx = i, by = j;
+                xB = i, yB = j;
             }
             if (temp == 'L')
             {
-                lx = i, ly = j;
+                xL = i, yL = j;
             }
             if (temp == 'R')
             {
-                rx = i, rx = j;
+                xR = i, yR = j;
             }
         }
     }
-    int ans1 = abs(lx - bx), ans2 = abs(ly - by);
-    cout << ans1 + ans2 - 1;
-    return 0;
+    if (xB == xL && xB == xR && (yR < max(yL, yB) && yR > min(yL, yB)))
+        return 0;
 }

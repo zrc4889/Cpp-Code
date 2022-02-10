@@ -1,31 +1,33 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <iostream>
+#define N 500010
 #define int long long
 using namespace std;
-int ans = 0;
-int a[1000000], b[1000000], sa[1000000], sb[1000000];
-int n;
 const int mod = 1e9 + 7;
-int S(int l, int r)
-{
-    int s1 = 0, s2 = 0;
-    for (int i = l; i <= r; ++i)
-    {
-        s1 = (sa[r] - sa[l - 1]) % mod;
-        s2 = (sb[r] - sb[l - 1]) % mod;
-    }
-    return s1 * s2 % mod;
-}
+int n;
+int a[N], b[N], sa[N], sb[N], pre[N], prea[N], preb[N];
+
 signed main()
 {
-
     cin >> n;
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; i++)
         scanf("%lld", &a[i]), sa[i] = (sa[i - 1] + a[i]) % mod;
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; i++)
         scanf("%lld", &b[i]), sb[i] = (sb[i - 1] + b[i]) % mod;
-    for (int l = 1; l <= n; ++l)
-        for (int r = l; r <= n; ++r)
-            ans = (ans + S(l, r)) % mod;
+    for (int i = 1; i <= n; i++)
+    {
+        prea[i] = (prea[i - 1] + sa[i]) % mod;
+        preb[i] = (preb[i - 1] + sb[i]) % mod;
+        pre[i] = (sa[i] * sb[i] % mod + pre[i - 1]) % mod;
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int sf = (pre[n] - pre[i - 1] + mod) % mod;
+        int sy = ((preb[n] - preb[i - 1] + mod) % mod * sa[i - 1]) % mod;
+        int sq = ((prea[n] - prea[i - 1] + mod) % mod * sb[i - 1]) % mod;
+        int sp = ((n - i + 1) * ((sa[i - 1] * sb[i - 1]) % mod)) % mod;
+        ans = (ans + sf - sy - sq + sp + mod) % mod;
+    }
     cout << ans;
-    return 0;
 }

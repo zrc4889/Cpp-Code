@@ -3,5 +3,6 @@
         "iostream": "cpp",
         "complex": "cpp",
         "ostream": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
