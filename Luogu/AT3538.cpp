@@ -1,18 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[55], n, k;
-int sum = 0;
+bool cmp(int a, int b) { return a > b; }
 int main()
 {
+    int n, k;
     cin >> n >> k;
-    for (int i = 1; i <= n; i++)
+    int a[n];
+    for (int i = 0; i < n; i++)
         cin >> a[i];
-    sort(a + 1, a + n + 1);
-    for (int i = 1; i <= n; i++)
+    sort(a, a + n, cmp);
+    int s = 0;
+    for (int i = 0; i < n; ++i)
     {
-        if (a[i] + sum <= k)
-            sum += a[i];
+        s += a[i];
+        if (s >= k)
+        {
+            cout << i + 1 << endl;
+            return 0;
+        }
     }
-    cout<<sum;
-    
+    cout << -1 << endl;
+    return 0;
 }

@@ -2,7 +2,7 @@
 
 ### language
 
-[Chinese](https://github.com/zrc4889/cpp-code/blob/master/README.md) | [English](https://github.com/zrc4889/cpp-code/blob/master/README.en.md)
+[Chinese](https://gitee.com/zrc4889/cpp-code/blob/master/README.md) | [English](https://gitee.com/zrc4889/cpp-code/blob/master/README.en.md)
 
 ### Introduce
 The road to C++ learning, a repository for writing code
