@@ -1,28 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-void f()
-{
-    int n;
-    for (int i = 1; i <= n; ++i)
-    {
-        int x;
-        cin >> x;
-        int sq = sqrt(x);
-        if (sq * sq == x)
-        {
-            cout << "NO" << endl;
-            return;
-        }
-    }
-    cout << "YES" << endl;
-}
-
+int t;
 int main()
 {
-    int t;
-    cin >> t;
+    cin>>t;
     while (t--)
-        f();
+    {
+        int n,a;
+        bool f = true;
+        cin >> n;
+        for (int i=1;i<=n;++i)
+        {
+            cin>>a;
+            int k = sqrt(a); // 根号
+            if (k*k!=a) f = false; // 去根后反过来，如果不能相等就是非完全平方数
+        }
+        if (f) cout<<"NO";
+        else cout<<"YES";
+        cout<<endl; // 统一输出
+    }
     return 0;
 }

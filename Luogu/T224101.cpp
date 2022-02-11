@@ -1,28 +1,38 @@
 #include <bits/stdc++.h>
+#include <cstdio>
 using namespace std;
+string s;
 int main()
 {
-    char temp;
-    int xB, xL, xR, yB, yL, yR;
-    for (int i = 1; i <= 10; i++)
+    int B1, B2, R1, R2, L1, L2;
+    for (int i = 0; i < 10; i++)
     {
-        for (int j = 1; j <= 10; j++)
+        cin >> s;
+        for (int j = 0; j < 10; j++)
         {
-            cin >> temp;
-            if (temp == 'B')
+            if (s[j] == 'B')
             {
-                xB = i, yB = j;
+                B1 = i;
+                B2 = j;
             }
-            if (temp == 'L')
+            if (s[j] == 'R')
             {
-                xL = i, yL = j;
+                R1 = i;
+                R2 = j;
             }
-            if (temp == 'R')
+            if (s[j] == 'L')
             {
-                xR = i, yR = j;
+                L1 = i;
+                L2 = j;
             }
         }
     }
-    if (xB == xL && xB == xR && (yR < max(yL, yB) && yR > min(yL, yB)))
-        return 0;
+    int Br = abs(B1 - R1) + abs(B2 - R2);
+    int Bl = abs(B1 - L1) + abs(B2 - L2);
+    int Rl = abs(R1 - L1) + abs(R2 - L2);
+    if ((B1 == L1 || B2 == L2) && Bl == Br + Rl)
+        cout << Bl + 1 << endl;
+    else
+        cout << Bl - 1 << endl;
+    return 0;
 }
