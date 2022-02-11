@@ -15,12 +15,13 @@ int main()
     else if (d1 == 1 || d2 == 1) // 1 3 5
     {
         cout << 1 << endl; // 两头牛之间有空位，最短为1
-        if (d1 - d2 > 0)   // 1 3 6
+        // cout << d2;
+        if (d1 - d2 > 0) // 1 3 6
         {
             // 判断是左边大还是右边大
             cout << d1;
         }
-        else
+        else // 6 9 11
         {
             cout << d2;
         }
@@ -28,14 +29,15 @@ int main()
     else
     {
         // Default
-        cout << 2 << endl;
+        cout << 2 << endl; // 114 514 1919810 -> 513 514 515
+        // cout << d1;
         if (d1 - d2 > 0)
         {
-            cout << d1;
+            cout << d1; // 第一段比第二段大
         }
         else
         {
-            cout << d2;
+            cout << d2; // 第一段比第二段小
         }
     }
 }
