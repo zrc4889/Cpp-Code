@@ -1,37 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, k;
-int c1 = 0;
-int a[11][21], c[11][21];
+int a[15], p[15];
+int n;
+void dfs(int x)
+{
+    if (x == n + 1)
+    {
+        for (int i = 1; i <= n; i++)
+            cout << a[i] << " ";
+        cout << endl;
+        return;
+    }
+    for (int i = 1; i <= x; i++)
+    {
+        if (p[i] == 1)
+            continue;
+        // a[x] = i;
+        p[i] = 1;
+        dfs(x + 1);
+        p[i] = 0;
+    }
+}
 int main()
 {
-    scanf("%d%d", &k, &n);
-    for (int i = 1; i <= k; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            scanf("%d", &a[i][j]);
-            c[i][a[i][j]] = j; //第i天第j头奶牛的排名
-        }
-    }
+    cin >> n;
     for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            int cnt = 0; //内部计数器
-            for (int x = 1; x <= k; x++)
-            {
-                if (c[x][i] > c[x][j])
-                {
-                    cnt++;
-                }
-            }
-            if (cnt == k) //每一天排名都一致，可以算作是一致的一对
-            {
-                c1++;
-            }
-        }
-    }
-    printf("%d", c1);
+        cin >> a[i];
+    dfs(1);
     return 0;
 }
