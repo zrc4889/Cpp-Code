@@ -1,13 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool check (int k)
+
+int n, m, L;
+int a[2000000];
+bool check(int x)
 {
-    
-    return 0;
+    int last = 0; // 上一块石头
+    int cnt = 0;  // 移除的石头块数
+    for (int i = 1; i <= n; i++)
+    {
+        if (a[i] - last < x)
+        {
+            // 太近了
+            cnt++;
+        }
+        else
+        {
+            last = a[i];
+            // 不移除
+        }
+    }
+    return cnt <= m;
 }
-int main
+int main()
 {
-    int n, m, L;
     cin >> L >> n >> m;
     for (int i = 1; i <= n; i++)
     {
@@ -15,9 +31,9 @@ int main
     }
     int l = 0, r = L; // R的值怎么给？
     sort(a + 1, a + n + 1);
-    while (l + 1 < r)
+    while (l + 1 < r) 
     {
-        int mid(l + r) / 2;
+        int mid = (l + r) / 2;
         if (check(mid))
         {
             l = mid;
