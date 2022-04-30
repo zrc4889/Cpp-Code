@@ -1,22 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+int f[10000], g[10000];
 int main()
 {
-    double n;
+    int n;
     cin >> n;
-    double l = -100, r = 100;
-    for (int i = 0; i < 100; ++i)
+    f[1] = 1, g[1] = 8; // f 奇数个3，偶数个3
+    for (int i = 2; i <= n; ++i)
     {
-        double mid = (l + r) / 2;
-        if (mid * mid * mid >= x)
-        {
-            r = mid;
-        }
-        else
-        {
-            l = mid;
-        }
+        f[i] = (f[i - 1] * 9 + g[i - 1]) % 12345;
+        g[i] = (g[i - 1] * 9 + f[i - 1]) % 12345;
     }
-    cout << l;
+    cout << g[n] << endl;
 }
