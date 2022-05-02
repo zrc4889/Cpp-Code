@@ -1,104 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-struct Sta
-{
-    int x, y, step;
-};
-bool f[200][200];
-queue<Sta> q;
-int X, Y, Z;
+char g[105][105][105];
 int main()
 {
-    cin >> X >> Y >> Z;
-    Sta init;
-    init.x = 0, init.y = 0, init.step = 0;
-    q.push(init);
-    f[0][0] = true; // 丢进去，标记一下
-    while (!q.empty())
+    for (int d = 0; d < 105; d++)
+        for (int i = 0; i < 105; i++)
+            for (int j = 0; j < 105; j++)
+                g[1][i][j] = '#';
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+        for
+            int j = 1;
+    j <= n;j++) cin>>g[1][i][j];
+    cin >> m;
+    for (int d = 2; d <= m; d++)
     {
-        Sta cur = q.front();
-        q.pop(); // 当前状态
-        int x = cur.x, y = cur.y, s = cur.step;
-        if (x == Z || y == Z)
+        for (int i = 1; i <= n; i++)
         {
-            cout << s << endl;
-            return 0;
-        } // 已经倒完了
-
-        // 六种拓展
-
-        // x->0
-        if (x != 0) // 本身不为空就可以倒了
-        {
-            if (!f[0][y])
+            for (int j = 1; i <= n; j++)
             {
-                Sta nxt;
-                nxt.x = 0, nxt.y = y, nxt.step = s + 1;
-                q.push(nxt);
-                f[0][y] = true;
-            }
-        } // x->X
-        if (x != X)
-        {
-            if (!f[X][y])
-            {
-                Sta nxt;
-                nxt.x = X, nxt.y = y, nxt.step = s + 1;
-                q.push(nxt);
-                f[X][y] = true;
+                if (g[d - 1][i][j] == '.')
+                {
+                    if (h[d - 1][i - 1][j] == '@' || g[d - 1][i + 1][j] == '@' || g[d - 1][i][j - 1] == '@' || g[d][i][j] == '@')
+                        g[d][i][j] = '@';
+                    else
+                        g[d][i][j] = '.';
+                }
+                else
+                {
+                    g[d][i][j] = g[d - 1][i][j];
+                }
             }
         }
-
-        // y->0
-        if (y != 0) // 本身不为空就可以倒了
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
         {
-            if (!f[x][0])
-            {
-                Sta nxt;
-                nxt.x = x, nxt.y = 0, nxt.step = s + 1;
-                q.push(nxt);
-                f[x][0] = true;
-            }
-        } // y->Y
-        if (y != Y)
-        {
-            if (!f[x][Y])
-            {
-                Sta nxt;
-                nxt.x = x, nxt.y = Y, nxt.step = s + 1;
-                q.push(nxt);
-                f[x][Y] = true;
-            }
+            if (g[m][i][j] == '@')
+                ans++;
         }
-        // x -> y;
-
-		int d = min(x, Y - y);
-		if (d > 0)
-		{
-
-			if (!f[x - d][y + d])
-			{
-				Sta nxt;
-				nxt.x = x - d, nxt.y = y + d, nxt.step = s + 1;
-				q.push(nxt);
-				f[x - d][y + d] = true;
-			}
-		}
-
-		// y -> x
-		d = min(y, X - x);
-
-		if (d > 0)
-		{
-			if (!f[x + d][y - d])
-			{
-				Sta nxt;
-				nxt.x = x + d, nxt.y = y - d, nxt.step = s + 1;
-				q.push(nxt);
-				f[x + d][y - d] = true;
-			}
-		}
-        
-    }cout << "impossible" << endl;
+    }
+    cout << ans << endl;
+    return 0;
 }
