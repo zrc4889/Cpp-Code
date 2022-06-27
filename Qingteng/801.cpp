@@ -1,36 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
-int p[100001];
-int flag;
-int n, ans = 0;
+int p[110]; // 第 i 行皇后放在第 i 行的 p[i] 列
+int ans = 0;
+bool c[110], r[110], w[110];
+int n;
 void dfs(int x)
 {
     if (x > n)
-    { // 相当于 x = n + 1
+    {
         ans++;
         return;
     }
     for (int i = 1; i <= n; ++i)
     {
-        p[x] = i;
-        flag = 1;
-        for (int j = 1; j < x; ++j)
+        if (c[i] == false && r[x - i + n] == false && w[x + i] == false)
         {
-            if (p[j] == p[x] || j - p[j] == x - p[x] || j + p[j] == x + p[x])
-            { // 检查是否冲突
-                flag = 0;
-                break;
-            }
-        }
-        if (flag)
+            c[i] = true;
+            r[x - i + n] = true;
+            w[x + i] = true;
             dfs(x + 1);
+            w[x + i] = false;
+            r[x - i + n] = false;
+            c[i] = false;
+        }
     }
 }
+
 int main()
 {
+    //  /   int n;
     cin >> n;
-    dfs(n);
-    cout<<ans;
-    system("pause");
+    dfs(1);
+    cout << ans;
     return 0;
 }
