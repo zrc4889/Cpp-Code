@@ -8,7 +8,7 @@
 using namespace std;
 int hh = 0, jj = 0, kk = 0, dd = 0, pp = 0, icp = 0, abcd = 0;
 int key = 0, ktk = 0, tkt = 0, ttt = 0;
-int na;
+int na; 
 char xy[1005][1005];
 int h, p, l, t;
 int pan = 0, bigger;
