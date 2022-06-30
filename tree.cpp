@@ -2,7 +2,7 @@
 
 using namespace std;
 int nodes[100][2];
-
+ 
 void preorder(int x) {
     // 根左右
     cout << x << " ";
