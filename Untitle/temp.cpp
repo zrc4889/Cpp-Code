@@ -1,55 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-map<string, int> table;
-queue<string> q;
-string a, b, x[20], y[20];
-int t;
+int n, k;
+int c1 = 0;
+int a[11][21], c[11][21];
 int main()
 {
-    cin >> a >> b;
-    t = 1;
-    while (cin >> x[t] >> y[t])
+    scanf("%d%d", &k, &n);
+    for (int i = 1; i <= k; i++)
     {
-        if (x[t] == "#")
+        for (int j = 1; j <= n; j++)
         {
-            t--;
-            break;
+            scanf("%d", &a[i][j]);
+            c[i][a[i][j]] = j; //第i天第j头奶牛的排名
         }
-        t++;
     }
-    q.push(a);
-    table[a] = 0;
-    // 记录a字符串
-    while (!q.empty())
+    for (int i = 1; i <= n; i++)
     {
-        string cur = q.front();
-        q.pop();
-        // 拿出头部的字符串
-        for (int k = 1; k <= t; ++k)
+        for (int j = 1; j <= n; j++)
         {
-            if (x[k].size() > cur.size())
-                continue;
-            for (int p = 0; p <= cur.size() - x[k].size(); ++p)
-                if (cur.substr(p, x[k].size()) == x[k]) // 完全一样了
+            int cnt = 0; //内部计数器
+            for (int x = 1; x <= k; x++)
+            {
+                if (c[x][i] > c[x][j])
                 {
-                    string tmp = cur;
-                    tmp.replace(p, x[k].size(), y[k]);
-                    if (table.find(tmp) == table.end())
-                    {
-                        table[tmp] = table[cur] + 1;
-                        if (table[tmp] <= 10)
-                        {
-                            if (tmp == b)
-                            {
-                                cout << table[tmp] << endl;
-                                return 0;
-                            }
-                        }
-                        q.push(tmp);
-                    }
+                    cnt++;
                 }
+            }
+            if (cnt == k) //每一天排名都一致，可以算作是一致的一对
+            {
+                c1++;
+            }
         }
     }
-    cout << "NO ANSWER!" << endl;
+    printf("%d", c1);
     return 0;
 }
