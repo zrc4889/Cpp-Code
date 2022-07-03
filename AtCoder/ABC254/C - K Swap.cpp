@@ -1,50 +1,31 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
-int a[200000];
-int n; // Length
-int k; // Swap times
-int b[200000];
-int ans = 0;
-void Swap(int x, int y)
-{
-    int s;
-    s = x, x = y, y = s;
-    ans++;
-    return;
-}
-int main()
+const int N = 2e5 + 10;
+int a[N], b[N], n, k, cnt;
+signed main()
 {
     cin >> n >> k;
-    for (int i = 1; i <= n; i++)
-        cin >> a[i], b[i] = a[i];
-    sort(b + 1, b + 1 + n);
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+    for (int i = 1; i <= k; ++i)
     {
-        if (a[i] != b[i])
-            ans++;
+        cnt = 0;
+        // Choose an intger i such that i<= i <= N-K,
+        // then swap the values of a[i] and a[i+k]
+        for (int j = i; j <= n; j += k) // +k
+            b[++cnt] = a[j];
+        sort(b + 1, b + cnt + 1); 
+        cnt = 0;// the arry are not only 2 numbers.
+        for (int j = i; j <= n; j += k)
+            a[j] = b[++cnt]; // then restore them
     }
-    ans /= 2;
-    cout<<ans;
-    // if (ans == k)
-
-    //     cout << "YES";
-    // for (int i = 1; i <= n; i++)
-    // {
-    //     int n = a[i];
-    //     for (int j = i; j <= n; j++)
-    //     {
-    //         int m = a[j];
-    //         if (m < n)
-    //         {
-    //             Swap(m, n);
-    //             break;
-    //         }
-    //     }
-    // }
-    // cout << ans;
-    // if (k == ans)
-    // {
-    //     cout << "YES";
-    // }
+    for (int i = 1; i < n; ++i)
+        if (a[i] > a[i + 1]) // if there are two numbers that a[i] > a[i+1], it must be not a ascending order. So print "No"
+        {
+            cout << "No";
+            return 0;
+        }
+    cout << "Yes";// else print "Yes"
     return 0;
 }
