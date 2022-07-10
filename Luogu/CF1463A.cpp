@@ -11,7 +11,7 @@ signed main()
         cin >> a >> b >> c;
         int sum = a + b + c;
         int temp = sum / 9;
-        if (a < temp || b < temp || c < temp) // 为什么加特判？
+        if (a < temp || b < temp || c < temp) // 无论如何都凑不成
             cout << "NO" << endl;
         else if (sum % 9 == 0) // 刚好完成增强版
             cout << "YES" << endl;
