@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 #define int long long
 using namespace std;
-bool cmp(int a, int b)
+const int L = 2e5 + 10;
+int a[L], sum[L];
+bool cmp(int x, int b)
 {
-    return a > b;
+    return x > b;
 }
 signed main()
 {
@@ -24,11 +26,32 @@ signed main()
         cin >> t;
         if (sum[0] > v * t)
             cout << 0 << endl;
-        else if (sum[n] <= t*v)
+        else if (sum[n] <= t * v)
             cout << -1 << endl; // 施尽所有魔法
-        else{
+        else
+        {
             //开始二分
-            if ()
+            int l = 1, r = n;
+            while (l + 1 < r)
+            {
+                int mid = (l + r) >> 1; // /2
+                if (sum[mid] > t * v)
+                {
+                    // ans = mid;
+                    r = mid;
+                }
+                else
+                    l = mid;
+            }
+            if (sum[l] > t * v)
+                cout << l;
+            else if (sum[r] > t * v)
+                cout << r;
+            else
+                cout << -1;
+            cout << endl;
+
+            // cout << ans << endl;
         }
     }
     return 0;
