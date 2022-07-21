@@ -11,11 +11,12 @@ void add(int u, int v)
     head[u] = num;
     to[num] = v;
     return;
+    // connected
 }
 int func(int x)
 {
     for (int i = 0;; i++)
-        if ((1 << i) >= x)
+        if ((1 << i) >= x) 
             return i;
     // 2 ^ i
 }
@@ -23,12 +24,12 @@ int dfs(int x, int f)
 {
     int y = 0;
     if (!f)
-        y += func(degree[x] + 1);
+        y += func(degree[x] + 1); // 度数+1 倍增
     else
         y += func(degree[x]);
-    for (int i = head[x]; i; i = nxt[i])
+    for (int i = head[x]; i; i = nxt[i]) // 遍历
         if (to[i] != f)
-            y += dfs(to[i], x) + 1;
+            y += dfs(to[i], x) + 1; 
     return y;
 }
 
