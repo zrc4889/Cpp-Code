@@ -1,32 +1,42 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
-const int maxn = 1e4 + 10;
-int a[maxn], s[maxn];
-int main()
+const int _ = 3e4 + 10;
+int a[_];
+int w;
+int n;
+/*
+..........................................................
+..=@`..//\@.../@.,/@@@@...=@`..=@\@.../@.@@@@@]..,/@@@^...
+...,@^@^..\@./@.=@`........=@`=@`.\@./@..@^...\@.=@.......
+....=@\....=@/..=@..........,@@*...=@/...@^...=@*.,\@@`...
+...//.=@`..*@^..,@^..........@^....*@^...@^..*@/.....=@...
+..[[...,[`.*[`....,[[[[......[`....*[`...[[[[[...,[[[`....
+*/
+signed main()
 {
-    int w, n;
     cin >> w >> n;
-    int t = n;
-    while (t--)
-    {
-        cin >> a[t];
-    }
-    sort(a, a + n);
-    int sum = 0;
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+    sort(a + 1, a + 1 + n);
+    int l, r;
     int ans = 0;
-    for (int i = 1; i <= n; i++)
-        s[i] = s[i - 1] + a[i]; // 前缀和
-    int p = 0;
-    s[0] = 0;
-    for (int i = 1; i <= n; i++)
+    l = 1, r = n;
+    // int i, j;
+    // l = 1, r = n;
+
+    while (l <= r)
     {
-        if (s[i] - s[p] > w)
-        {
-            ans++;
-            i--;
-            p = i;
-        }
+        if (a[l] + a[r] <= w)
+            ++l, --r, ++ans;
+        else
+            --r, ++ans;
     }
-    cout << ans + 1;
+
+    cout << ans << endl;
+    // while (i < j)
+    // {
+    // if (a[i] + a[j] > w)
+    // }
     return 0;
 }
