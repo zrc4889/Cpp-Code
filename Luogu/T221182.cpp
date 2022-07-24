@@ -3,7 +3,7 @@ using namespace std;
 struct node
 {
     int date;
-    string s;
+    string s; 
     int change;
 };
 bool cmp(node x, node y)
