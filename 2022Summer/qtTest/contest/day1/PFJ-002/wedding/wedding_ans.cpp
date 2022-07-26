@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int _ = 1005;
-// 二次函数 & 贪心
+
 struct Node
 {
     int id;
