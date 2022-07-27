@@ -1,18 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int _ = 105;
-int main()
+
+using namespace std;
+
+int n, m, k;
+const int _ = 1e5 + 10;
+int a[_], f[_][101];
+
+signed main()
 {
     freopen("bright.in", "r", stdin);
     freopen("bright.out", "w", stdout);
-    int n, k;
-    // 区间 dp
-    cin >> n >> k;
+
+    cin >> n >> m >> k;
     for (int i = 1; i <= n; i++)
         cin >> a[i];
-    for (int i = 1; i <= n; i++)
+
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= m; ++j)
+            f[i][j] = INT_MIN / 3;
+
+    for (int i = 1; i <= n; ++i)
     {
-        for (int j = i + 1; j <= n; j += k)
+        f[i][1] = max(f[i - 1][1], a[i]); // 先给它读入
+        for (int j = 2; j <= min(i, m); ++j)
+            f[i][j] = max(max(f[i - 1][j], f[i][j]), f[i - k][j - 1] + a[i]);
+            // 前i个数里面选j个
+            // i - k 位置差大于等于 
     }
-    return 0;
+    cout << f[n][m];
 }

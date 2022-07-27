@@ -1,27 +1,25 @@
 #include <bits/stdc++.h>
-#define int long long
 using namespace std;
 int a[3];
-// 滚动数组
-signed main()
+int n, x, num;
+int main()
 {
-    int n, x;
-    int num = 0, sum = 0;
+
     cin >> n;
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; i++)
     {
-        cin >> a[2]; // 后一天
+        cin >> a[2];
         if (a[2] >= a[1])
         {
             x++;
             num = max(num, x);
         }
         else
-        {
             x = 1;
-        }
-        a[1] = a[2]; //后事
+        a[1] = a[2];
     }
-    cout << sum << endl;
+
+    cout << num;
+
     return 0;
 }
