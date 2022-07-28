@@ -1,51 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-string a;
+
+int cnt[4];
+
 int main()
 {
     freopen("offer.in", "r", stdin);
     freopen("offer.out", "w", stdout);
-    int t;
-    cin >> t;
-    int q, w, e, r;
-    q = w = e = r = 0;
-    while (t--)
+
+    int n;
+    string str;
+    cin >> n;
+    while (n--)
     {
-        cin >> a;
-        for (int i = 0; i < 4; i++)
-        {
-            switch (a[i])
-            {
-            case 'A':
-                q++;
-                break;
-            case 'B':
-                w++;
-                break;
-            case 'C':
-                e++;
-                break;
-            case 'D':
-                r++;
-                break;
-                // default:
-                //     cout << "NfOuPcKe" << endl;
-            }
-        }
-        // cout << q << endl;
-        if (r >= 1 || e >= 2)
-        {
+        memset(cnt, 0, sizeof(cnt));
+        cin >> str;
+        for (int i = 0; i < str.size(); ++i)
+            cnt[str[i] - 'A']++; //位置偏移
+        if (cnt[3] > 0 || cnt[2] > 1)
             cout << "failed" << endl;
-            // break;
-        }
-
-        else if (q >= 3 && r == 0)
-
-        {
-            //
+        else if (cnt[0] > 2)
             cout << "sp offer" << endl;
-            // break;
-        }
+        else
+            cout << "offer" << endl;
     }
-    return 0;
 }
