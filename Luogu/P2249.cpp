@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+const int _ = 1e6 + 10;
 int temp;
 int n, m;
-int a[999999], b[999999];
+int a[_], b[_];
 int check(int x)
 {
     int l = 1, r = n;

@@ -1,88 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int _ = 2e5 + 10;
-struct Node
+
+int N;
+vector<int> L[2], H[2];
+int M;
+void match(vector<int> &l, vector<int> &h)
 {
-    int x;
-    /*XYC YYDS*/
-    int h;    // 身高
-    int f;    // 愿意和高 or 和低
-    bool vis; // 标记
-} a[_];       // 整合到一个线性表里面
-bool cmp(Node x, Node y)
-{
-    return x.h < y.h; // 高度从小到大
+    if (l.empty() || h.empty())
+        return;
+    for (int i = l.size() - 1, j = h.size() - 1; i >= 0; --i, --j, ++M)
+
+    {
+        while (j >= 0 && h[j] >= l[i])
+            --j;
+        if (j < 0)
+            return; // 没人了
+    }
 }
+
 int main()
 {
-    // #ifdef LOCAL
-    // LOCALfo
-    // #endif
     freopen("dance.in", "r", stdin);
     freopen("dance.out", "w", stdout);
-    int n;
-    int tmp;
-    cin >> n;
-    for (int i = 1; i <= n; i++)
+    cin >> N;
+
+    for (int i = 0; i < 2; ++i)
     {
-        cin >> tmp;
-        if (tmp < 0)
+        for (int j = 0; j < N; ++j)
         {
-            a[i].h = -tmp;
-            a[i].f = -1; // 低
-            a[i].x = 1;
+            int h;
+            cin >> h;
+            if (h < 0)
+                L[i].push_back(-h); // 负数情况
+            else
+                H[i].push_back(h);
         }
-        else if (tmp >= 0)
-        {
-            a[i].h = tmp;
-            a[i].f = 1; //高
-            a[i].x = 1;
-        }
-        /*XYC YYDS*/
+        sort(L[i].begin(), L[i].end());
+        sort(H[i].begin(), H[i].end());
     }
-    for (int i = n + 1; i <= 2 * n; i++)
-    {
-        cin >> tmp;
-        if (tmp < 0)
-        {
-            a[i].h = -tmp;
-            a[i].f = -1;
-            a[i].x = -1;
-        }
-        else if (tmp >= 0)
-        {
-            a[i].h = tmp;
-            a[i].f = 1;
-            a[i].x = -1;
-        }
-    }
-    int ans = 0;
-    sort(a + 1, a + 1 + n + n, cmp);
-    for (int i = 1; i <= 2 * n; i++) // 此for循环仅考虑从小到大
-        for (int j = i + 1; j <= 2 * n; j++)
-        {
-            if (a[i].x == -1 && a[i].vis == 0) // 女
-            {
-                if (a[i].f == 1 && a[j].f == -1 && a[j].x == 1 && a[j].vis == 0)
-                {
-                    ans++;
-                    a[j].vis = 1;
-                    a[i].vis = 1;
-                    cout << i << " " << j << endl;
-                }
-            }
-            else if (a[i].x == 1 && a[i].vis == 0)
-            {
-                // 男
-                if (a[i].f == 1 && a[j].f == -1 && a[j].x == -1 && a[j].vis == 0)
-                {
-                    ans++;
-                    a[j].vis = 1;
-                    a[i].vis = 1;
-                    cout << i << " " << j << endl;
-                }
-            }
-        }
-    cout << ans << endl;
-    return 0;
+    match(L[0], H[1]);
+    match(L[1], H[0]);
+
+    cout << M << endl;
 }
