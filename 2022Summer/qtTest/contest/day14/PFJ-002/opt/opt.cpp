@@ -23,8 +23,7 @@ int main()
         {
             cout << -1 << endl; // 判定无解
             continue;
-        }
-        
+        }     
     }
     return 0;
 }
