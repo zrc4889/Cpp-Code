@@ -1,30 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[114514];
-int ans;
+int n, k, pos, cnt;
 int main()
 {
-    // #ifdef LOCAL
-    // LOCALfo
-    // #endif
-    freopen("median.in", "r", stdin);
-    freopen("median.out", "w", stdout);
-    int n, k;
     cin >> n >> k;
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= n; ++i)
     {
         cin >> a[i];
+        if (a[i] == k)
+            pos = i;
     }
-    for (int i = 1; i < n; i++)
+    cnt = 0;
+    f[n + 0]++; // 有可能是一个负数，做一个偏移
+    for (int i = pos - 1; i >= 1; --i)
     {
-        for (int j = 1; j < n; j++)
-        {
-            sort(a + i, a + j);
-            int mid = i + (j - i) / 2;
-            if (a[mid] == k)
-                ans++;
-        }
+        if (a[i] < k)
+            cnt--; // 平衡
+        else if (a[i] > k)
+            cnt++;
+        f[n + cnt]++;
     }
-    cout << ans << endl;
+    cnt = 0;
+    long long ans = f[n + 0];
+    for (int i = pos + 1; i <= n; ++i)
+    {
+        if (a[i] < k)
+            cnt--;
+        else if (a[i] > k)
+            cnt++;
+        ans += f[n - cnt];
+    }
+    cout << ans;
     return 0;
 }
