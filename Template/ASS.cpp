@@ -1,8 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[]
+
 int main()
 {
-
+#ifdef LOCAL
+    LOCALfo
+#endif
+        ;
+    
     return 0;
 }
