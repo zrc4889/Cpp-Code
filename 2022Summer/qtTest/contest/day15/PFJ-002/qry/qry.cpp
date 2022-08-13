@@ -12,9 +12,20 @@ signed main()
     // gcd(a, b) max 一定是区间最大值
     // lcm(a, b) min 一定是区间最小值
     // lcm(a, b) max 一定是区间最大值乘区间次大值
-    cout << 1 << endl;
-    cout << r << endl;
-    cout << l << endl;
-    cout << r * (r - 1) << endl;
+    if (l != r)
+    {
+
+        cout << 1 << endl;
+        cout << r << endl;
+        cout << l << endl;
+        cout << r * (r - 1) << endl;
+    }
+    else
+    {
+        cout << l << endl
+             << l << endl
+             << l << endl
+             << l << endl;
+    }
     return 0;
 }
