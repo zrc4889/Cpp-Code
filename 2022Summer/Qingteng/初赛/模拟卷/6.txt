@@ -1,0 +1,21 @@
+A
+A
+C ?
+B
+A ?
+B
+C +
+A +
+A
+B ?
+C +
+D
+C
+C
+A
+
+F T T T C D
+T F T T B D
+T T F T A C ?
+
+8.28 continue
