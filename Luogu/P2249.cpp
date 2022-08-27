@@ -1,40 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int _ = 1e6 + 10;
-int temp;
 int n, m;
-int a[_], b[_];
-int check(int x)
+int q, a[_];
+int find(int x)
 {
     int l = 1, r = n;
     while (l < r)
     {
-        int mid = (l + r) / 2;
+        int mid = (l + r) >> 1;
         if (a[mid] >= x)
-            r = mid; // 大了就往右
+            r = mid;
         else
-            l = mid + 1; // 小了就往左
+            l = mid + 1;
     }
     if (a[l] == x)
-        return l; // 找到了就输出
+        return l;
     else
         return -1;
 }
-
 int main()
 {
-    // int temp = 0;
+#ifdef LOCAL
+    LOCALfo
+#endif
+        ;
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
-    {
         cin >> a[i];
-        // temp = max(temp, a[i]);
-    }
     for (int i = 1; i <= m; i++)
     {
-        cin >> temp;           // 输入
-        int sum = check(temp); // 二分
-        cout << sum << ' ';           // 输出
+        cin >> q;
+        int ans = find(q);
+        cout << ans << ' ';
     }
     return 0;
 }
