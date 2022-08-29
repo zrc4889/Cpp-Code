@@ -1,21 +1,30 @@
-A
-A
-C ?
-B
-A ?
-B
-C +
-A +
-A
-B ?
-C +
-D
-C
-C
-A
+A +2
+A ans C
+C ? +2
+B +2
+A ? ans B
+B +2
+C + +2
+A + +2
+A 
+B ? 
+C + +2
+D +2
+C +2
+C 
+A +2
+add 20 / 30 
 
-F T T T C D
-T F T T B D
-T T F T A C ?
+F T T T C D +6 +3
+T F T T B D +6 +0
+T T F T A C ? +3 +6
+add 24 / 40
 
 8.28 continue
+
+A B B A C +12
+A C A A C +9
+
+add 21 / 30
+
+score 65
