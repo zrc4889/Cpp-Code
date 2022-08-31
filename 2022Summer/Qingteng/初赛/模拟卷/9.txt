@@ -1,15 +1,30 @@
-B
-C
-B
-C
-D
-C
-C ?
-C
-B
-C ?
-D +
-B ?
-C
-B
-C
+B +2
+C 
+B 
+C +2
+D +2
+C +2
+C ? +2
+C +2
+B +2
+C ? +2
+D + +2
+B ? +2
+C+2
+B +2
+C +2
+
++26
+
+F F T F B B +12
+F T T F C A +12
+T T T F D C +12
+
++36
+
+C B C C C +9
+B B C C A +9
+
++18
+
+score 80
