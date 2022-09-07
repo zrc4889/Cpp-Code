@@ -1,40 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[1999];
-int b[1999];
+
 int main()
 {
-    string q, w;
-    cin >> q >> w;
-    for (int i = 1; i <= 4; i++)
-    {
-        // cin >> a[i];
-        a[i] = q[i] - '0';
-    }
-    for (int i = 1; i <= 4; i++)
-    {
-        // cin >> b[i];
-        b[i] = w[i] - '0';
-    }
-    int sum1 = 0, sum2 = 0;
-    for (int i = 1; i <= 4; i++)
-    {
-        if (a[i] == b[i])
-        {
-            sum1++;
-        }
-    }
-    sort(a + 1, a + 1 + 4);
-    sort(b + 1, b + 1 + 4);
-    for (int i = 1; i <= 4; i++)
-    {
-        if (a[i] == b[i])
-        {
-            sum2++;
-        }
-    }
-    sum2 = sum2 - sum1;
-    cout << sum1 << endl
-         << sum2;
+#ifdef LOCAL
+    LOCALfo
+#endif
+        ;
+    int s, v;
+    cin >> s >> v;
+    int tmp = s / v;
+    if (s % v)
+        tmp++;
+    int miu, hur;
+    miu = 50, hur = 7;
+    int i = 0;
+    if (miu - tmp < 0)
+        while (miu < tmp)
+            i++, miu += 60;
+    miu -= tmp;
+    hur -= i;
+    if (hur < 0)
+        hur = 24 + hur;
+    printf("%02d:%02d", hur, miu);
+    // cout << hur << ':' << miu;
     return 0;
 }

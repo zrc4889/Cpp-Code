@@ -1,31 +1,23 @@
 #include <bits/stdc++.h>
 #define int long long
 using namespace std;
-const int maxn = 1e3 + 10;
 int n, k;
-int ans;
-int a[maxn];
+int ans = 0;
+const int _ = 5e6 + 10;
+int a[_];
 bool check(int x)
 {
-    if (x == 1)
-    {
-        return 0;
-    }
-    for (int i = 2; i * i <= x; ++i)
-    {
+    for (int i = 2; i <= sqrt(x); i++)
         if (x % i == 0)
             return 0;
-    }
     return 1;
 }
 void dfs(int x, int cnt, int num)
 {
-    if (num == k)
+    if (num == k) // 选满了
     {
         if (check(cnt))
-        {
             ans++;
-        }
         return;
     }
     if (x == n + 1)
@@ -35,12 +27,14 @@ void dfs(int x, int cnt, int num)
 }
 signed main()
 {
+#ifdef LOCAL
+    LOCALfo
+#endif
+        ;
     cin >> n >> k;
     for (int i = 1; i <= n; i++)
-    {
         cin >> a[i];
-    }
-    dfs(1, 0, 0);
+    dfs(1, 0, 0); // dfs(i, j, k) 表示选 i 个数，累计加和 j，一共选了 k 个数字
     cout << ans;
     return 0;
 }

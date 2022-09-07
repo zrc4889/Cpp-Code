@@ -1,33 +1,29 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-int gcd(int a, int b)
-{
-    while (b != 0)
-    {
-        int r = a % b;
-        a = b;
-        b = r;
+
+int n;
+int digits[10];
+int sum1 = 0;
+long long sum2 = 0;
+
+void solve(int x) {
+    int y = x;
+    int len = 0;
+    while (y > 0) {
+        digits[len++] = y % 10;
+        y /= 10;
     }
-    return a;
-}
-int main()
-{
-    // #ifdef LOCAL
-    // LOCALfo
-    // #endif
-    // ;
-    int x, y, ans = 0;
-    cin >> x >> y;
-    for (int i = x; i <= y; i++)
-    {
-        for (int j = x; j <= y; j++)
-        {
-            int g = gcd(i, j);
-            int b = i * j / g;
-            if (g == x && b == y)
-                ans++;
+    for (int i = 0; i < len; i++) {
+        if (digits[i] > 0) {
+            sum1 += 1;
+            sum2 += digits[i];
         }
     }
-    cout << ans << endl;
+}
+
+int main() {
+    cin >> n;
+    for (int i = 1; i <= n; i++) solve(i);
+    cout << sum1 << ' ' << sum2;
     return 0;
 }

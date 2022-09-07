@@ -1,35 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int _ = 10001;
-int f[_], a[_];
+const int INF = 2147482647;
+const int _ = 1e5 + 10;
+int n, t;
+int h[_], f[_];
+// 记 f[i] 表示「对于所有长度为 i 的单调不升子序列，它的最后一项的大小」的最大值。
 int main()
 {
 #ifdef LOCAL
     LOCALfo
 #endif
         ;
-    int n = 1;
-    while (~scanf("%d", &a[n++]))
-        // f[n] = 1;
-    ;
-    // n -= 2;
-    // f[1] = a[1];
-    // f[0] = 1;
-    for (int i = 1; i <= n; i++)
-        for (int j = i; j >= 1; j--)
-            if (a[i] <= a[j])
-                f[i] = max(f[i], f[j] + 1);
-    int maxx = -1;
-    for (int i = 1; i <= n; i++)
-        maxx = max(maxx, f[i]);
-    cout << maxx << endl;
-    // 第一问成功
-    int ans = 0;
+    while (~scanf("%d", &h[++n]))
+        ;
+    --n;
+    t = 0;
+    memset(f, 0, sizeof(f)), f[0] = INF;
     for (int i = 1; i <= n; i++)
     {
-        if (a[i] < a[i + 1])
-            ans++;
+        int l = 0, r = t + 1;
+        while (r - l > 1)
+        {
+            int m = l + (r - l) / 2;
+            if (f[m] >= h[i])
+                l = m;
+            else
+                r = m;
+        }
+        int x = l + 1;
+        if (x > t)
+            t = x; // 取最大值上
+        f[x] = h[i];
     }
-    cout << ans + 1 << endl;
+    cout << t << endl;
+    t = 0;
+    memset(f, 0, sizeof(f)), f[0] = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int l = 0, r = t + 1;
+        while (r - l > 1)
+        {
+            int m = l + (r - l) / 2;
+            if (f[m] < h[i])
+                l = m;
+            else
+                r = m;
+        }
+        int x = l + 1;
+        if (x > t)
+            t = x;
+        f[x] = h[i];
+    }
+    cout << t << endl;  
     return 0;
 }
