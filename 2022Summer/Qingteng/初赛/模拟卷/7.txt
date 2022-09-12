@@ -1,0 +1,30 @@
+A +2
+D +2
+A +2
+B +2
+B +2
+B +2
+D +2
+D +2
+B +2
+D +2
+B +2
+B +2
+A +2
+B +2
+C +2
+
++30
+
+F T F T B C +6 +3
+F F F T C D +6 +3
+F F F T +6
+
++15
+
+B C C B D +9
+A D B C D +6
+
++15
+
+score 60

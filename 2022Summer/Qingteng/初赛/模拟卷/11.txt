@@ -1,21 +1,26 @@
-B
-D
-A
-C
-A
-D
-B
-C
-C
-B
-D
-D
-B
-B
-D
+B +2
+D +2 
+A +2
+C +2 
+A +2
+D +2 
+B +2
+C +2
+C +2 
+B +2
+D +2
+D +2
+B +2
+B +2
+D +2
 
-T F T F B D
-F T F F A B
-F T T F B A A
++30
 
-A B A C D
+T F T F B D +12
+F T F F A B +12
+F T T F B A A +12
+
+A B A C D +12
+A C C D C +3
+
+score 91
