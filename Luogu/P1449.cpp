@@ -1,55 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
-stack<int> a;
-
+stack<int> n;
+char c;
+int s, x, y;
 int main()
 {
-    char tmp;
-    while (cin >> tmp && tmp != '@')
+#ifdef LOCAL
+    LOCALfo
+#endif
+        ;
+    while (c != '@')
     {
-        if (tmp == '+' || tmp == '-' || tmp == '*' || tmp == '/')
+        c = getchar();
+        if (c == '+')
         {
-            int cur1 = a.top();
-            a.pop();
-            int cur2 = a.top();
-            a.pop();
-            // switch (tmp)
-            // {
-            // case '+' /* constant-expression */:
-            if (tmp == '+')
-            {
-
-                int t = cur2 + cur1;
-                a.push(t);
-            }
-            if (tmp == '+')
-            {
-
-                int t = cur2 + cur1;
-                a.push(t);
-            }
-            if (tmp == '-')
-            {
-
-                int t = cur2 - cur1;
-                a.push(t);
-            }
-            if (tmp == '*')
-            {
-
-                int t = cur2 * cur1;
-                a.push(t);
-            }
-            if (tmp == '/')
-            {
-
-                int t = cur2 / cur1;
-                a.push(t);
-            }
+            x = n.top(), n.pop(), y = n.top(), n.pop(), n.push(x + y);
         }
-        else if (tmp != '.')
-            a.push(tmp - '0');
+        else if (c == '-')
+        {
+            x = n.top(), n.pop(), y = n.top(), n.pop(), n.push(y - x);
+        }
+        else if (c == '*')
+        {
+            x = n.top(), n.pop(), y = n.top(), n.pop(), n.push(x * y);
+        }
+        else if (c == '/')
+        {
+            x = n.top(), n.pop(), y = n.top(), n.pop(), n.push(y / x);
+        }
+        else if (c == '.')
+        {
+            n.push(s);
+            s = 0;
+        }
+        else
+            s = s * 10 + c - '0';
     }
-
+    cout << n.top();
     return 0;
 }
