@@ -1,45 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int _ = 2e5 + 10;
+const int _ = 1e4 + 10;
 int a[_], b[_];
-// 只能贪心，不会dp，预计30pts
-struct FIGHT
-{
-    int a; // 伤害 damage
-    int b; // 体力消耗
-} g[_];
-bool cmp(FIGHT x, FIGHT y)
-{
-    if (x.b == y.b)
-        return x.a > y.a;
-    return x.b < y.b;
-}
+int f[_];
+int n, h;
 int main()
 {
-    freopen("kill.in", "r", stdin);
-    freopen("kill.out", "w", stdout);
-    int h, n;
-    cin >> h >> n;
+#ifdef LOCAL
+    LOCALfo
+#endif
+            // freopen("kill.in", "r", stdin);
+            // freopen("kill.out", "w", stdout);
+            // a 血量
+            // b 体力
+            cin >>
+        h >> n;
     for (int i = 1; i <= n; i++)
-        cin >> g[i].a >> g[i].b;
+        cin >> a[i] >> b[i];
+    // f[0] = 0;
+    // f[i] 表示 白骨精血量为 i 的最小体力值
+    // 方案1
+    // for (int i = 1; i <= n; i++)
+    //     for (int j = 0; j <= h; ++j)
+    //         f[min(h, j + a[i])] = min(f[j + a[i]], f[j] + b[i]);
+    // cout << f[h] << endl;
 
-    sort(g + 1, g + 1 + n, cmp);
-
-    int f = 0;
-    int times = 0;
+    // f[i] 血量剩余 i 用的 体力
+    // 方案2
+    f[h] = 0;
     for (int i = 1; i <= n; i++)
     {
-        // FIGHT g[i] = g[i];
-        if (g[i].a != 0)
-            times = h / g[i].a;
-        while (times--)
+        for (int j = h; j >= 0; --j)
         {
-            h -= g[i].a;
-            f += g[i].b;
+            f[max(0, j - a[i])] = min(f[max(0, j - a[i])], f[j] + b[i]);
         }
-        if (h <= 0)
-            break;
     }
-    cout << f << endl;
+    cout << f[0] << endl;
     return 0;
 }

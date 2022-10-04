@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
-const int _ = 2e5 + 10;
+const int _ = 3e5 + 10;
 int a[_];
 // 贪心，必定 100pts
 bool cmp(int x, int y)
 {
     return x > y;
 }
-int main()
+signed main()
 {
     freopen("fight.in", "r", stdin);
     freopen("fight.out", "w", stdout);
@@ -20,6 +21,8 @@ int main()
     sort(a + 1, a + 1 + n, cmp);
     for (int i = 1; i <= n; i++)
     {
+        if (a[i] == 0)
+            continue;
         if (k > 0)
         {
             // 还有 A 攻击次数
