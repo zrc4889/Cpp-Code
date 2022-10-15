@@ -1,29 +1,32 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int n;
-int digits[10];
-int sum1 = 0;
-long long sum2 = 0;
-
-void solve(int x) {
-    int y = x;
-    int len = 0;
-    while (y > 0) {
-        digits[len++] = y % 10;
-        y /= 10;
-    }
-    for (int i = 0; i < len; i++) {
-        if (digits[i] > 0) {
-            sum1 += 1;
-            sum2 += digits[i];
+int main()
+{
+    // #ifdef LOCAL
+    // LOCALfo
+    // #endif
+    // ;
+    freopen("fuck.out", "w", stdout);
+    int a = 0;
+    int fuck = 0;
+    for (int i = 1; i <= 1000; i++)
+    {
+        for (int j = 1; j <= i; j++)
+        {
+            // a += i;
+            a = i;
+            int tmp = a;
+            int f;
+            while (a != 0)
+            {
+                f = a % 10;
+                a /= 10;
+                fuck += f;
+                cout << fuck << ',';
+            }
+            // cout << a << ", ";
         }
     }
-}
-
-int main() {
-    cin >> n;
-    for (int i = 1; i <= n; i++) solve(i);
-    cout << sum1 << ' ' << sum2;
     return 0;
 }
