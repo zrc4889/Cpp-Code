@@ -1,53 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
-// TODO: 复习2022年10月26日
 const int _ = 5e5 + 10;
 int n, m;
-int s[_];
+int a[_];
 int lowbit(int x) { return x & (-x); }
-struct Node
+struct TREE
 {
-    int c[_];
-    void add(int x, int d)
-
+    int s[_]; // 树状数组总数组
+    void init()
     {
-        s[x] += d; // 注意这边是原数组
+        // 先写init
+        memset(s, 0, sizeof(s));
+        for (int i = 1; i <= n; i++)
+            for (int j = i - lowbit(i) + 1; j <= i; j++)
+                s[i] = s[i] + a[j];
+        return;
+    }
+    void add(int x, int d)
+    {
+        a[x] += d;
         for (int i = x; i <= n; i += lowbit(i))
-            c[i] += d;
+            s[i] += d;
     }
     int sum(int x)
     {
         int ans = 0;
-        for (int i = x; i > 0; i -= lowbit(x))
-            ans += c[i];
+        for (int i = x; i > 0; i -= lowbit(i))
+            ans += s[i];
         return ans;
     }
-    void init()
-    {
-        memset(c, 0, sizeof c);
-        for (int i = 1; i <= n; i++)
-            for (int j = i - lowbit(i) + 1; j <= i; j++)
-                c[i] += s[j];
-    }
-} a;
-int main()
+
+} tree;
+
+signed main()
 {
 #ifdef LOCAL
+
     LOCALfo
 #endif
             cin >>
         n >> m;
     for (int i = 1; i <= n; i++)
-        cin >> s[i];
-    a.init();
-    for (int i = 1; i <= m; i++)
+        cin >> a[i];
+    tree.init();
+    while (m--)
     {
-        int b, x, y;
-        cin >> b >> x >> y;
-        if (b == 1)
-            a.add(x, y);
-        else
-            cout << a.sum(y) - a.sum(x - 1) << endl;
+        int op, x, y;
+        cin >> op >> x >> y;
+        if (op == 1)
+        {
+            tree.add(x, y);
+        }
+        else if (op == 2)
+        {
+            // 后面减前面
+            cout << tree.sum(y) - tree.sum(x - 1) << endl;
+        }
     }
     return 0;
 }

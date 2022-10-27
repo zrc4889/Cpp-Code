@@ -12,10 +12,12 @@ bool cmp(node a, node b)
 }
 int find(int x)
 {
+    // 一个循环就结束，路径压缩再压缩
     while (parent[x] != x)
         x = parent[x] = parent[parent[x]];
     // 如果一个点的父亲不是他自己，那么讲将他的父亲的父亲设为他的父亲
     return x;
+    // return parent[x] == x ? x : (parent[x] = find(x)); MLE 代码
 }
 void root(int x, int y)
 {
