@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int _ = 51;
-// TODO: 枚举颜色分界点在哪里（枚举i，j到n个行）再统计每个方案数下最小的次数
+// TODO: 枚举颜色分界点在哪里（枚举i，j到n个行）再统计每个方案数下最小的次数 2022年11月3日
+// TOOD：2022年11月4日 优化
 char ch[_][_];
 int n, m;
-int ans = 0;
+int ans = 0x7fffffff;
 
 int main()
 {
@@ -16,30 +17,25 @@ int main()
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++)
             cin >> ch[i][j];
-    // 第一行保底白色
-    // ans += 不是白色的颜色数量
-    for (int j = 1; j <= m; j++)
-        if (a[1][j] != 'W')
-            ans++;
-    // 最后一行保底红色的
-    // ans += 不是红色的颜色数量
-    for (int j = 1; j <= m; j +)
-        if (a[n][j] != 'R')
-            ans++;
-    // 每种颜色都遍历过去看看选哪一种最优
-    for (int i = 2; i <= n - 1; i++)
-    {
-        for (int j = 1; j <= m; j++)
+    for (int i = 2; i < n; i++)
+        for (int j = i + 1; j <= n; j++)
         {
-            int w, r, b;
-            if (a[i][j] == 'W')
-                w++;
-            if (a[i][j] == 'R')
-                r++;
-            if (a[i][j] == 'B')
-                b++;
+            // 枚举分界点
+            int sum = 0;
+            for (int x = 1; x < i; x++)
+                for (int y = 1; y <= m; y++)
+                    if (ch[x][y] != 'W')
+                        sum++;
+            for (int x = i; x < j; x++)
+                for (int y = 1; y <= m; y++)
+                    if (ch[x][y] != 'B')
+                        sum++;
+            for (int x = j; x <= n; x++)
+                for (int y = 1; y <= m; y++)
+                    if (ch[x][y] != 'R')
+                        sum++;
+            ans = min(ans, sum);
         }
-    }
-
+    cout << ans << endl;
     return 0;
 }

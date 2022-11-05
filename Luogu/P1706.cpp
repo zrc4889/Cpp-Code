@@ -1,33 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[100001], p[100001];
+const int _ = 114514;
+int vis[_], a[_];
 int n;
-int sum = 0;
+void print()
+{
+    for (int i = 1; i <= n; i++)
+    {
+        printf("%5d", a[i]);
+    }
+    cout << endl;
+    return;
+}
 void dfs(int x)
 {
-    if (x == n + 1)
+    if (x == n)
     {
-        for (int i = 1; i <= n; ++i)
-            printf("    %d", a[i]);
-        cout << endl;
-        sum++;
+        print();
         return;
     }
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; i++)
     {
-        if (p[i] == 1)
-            continue; // 标记过的，排除
-        a[x] = i;     // 妙用下标为值
-        p[i] = 1;     // 完成前，添加标记，防止重复
-        dfs(x + 1);
-        p[i] = 0; // 完成后，解除标记
+        if (!vis[i])
+        {
+            vis[i] = 1;
+            a[x + 1] = i;
+            dfs(x + 1);
+            vis[i] = 0;
+        }
     }
 }
-int main()
+
+signed main()
 {
     cin >> n;
-    dfs(1);
-    cout << sum << endl;
-    // system("pause");
+    dfs(0);
     return 0;
 }
