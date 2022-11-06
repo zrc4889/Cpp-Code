@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
-using namespace std;
 #define int long long
+using namespace std;
+// Auther: zrc4889
 // CSP - J2 2022 T2
+
 signed main()
 {
     int T;
@@ -10,29 +12,25 @@ signed main()
     while (T--)
     {
         cin >> n >> e >> d;
-        int m = n - e * d + 2; // 数据范围里面写。。。
+        int m = n - e * d + 2;
         int flag = 0;
 
-        int l = 1, r = m - 1, mid;
+        int l = 1, r = m - 1; // 此处是不可以取到 m 的，请读者自行思考
         while (l <= r)
         {
-            // 二分的一个变式
-            int p = (l + r) >> 1;
+            int p = l + r >> 1; // 位运算加速 
             int q = m - p;
-            // 为什么
+
             if (p * q == n)
-            // 满足了条件输出
             {
                 cout << p << ' ' << q << endl;
                 flag = 1;
                 break;
             }
-            // 小了往右区间
             else if (p * q < n)
             {
                 l = p + 1;
             }
-            // 大了往左区间
             else
             {
                 r = p - 1;
