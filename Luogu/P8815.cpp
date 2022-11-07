@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// TODO
+// CSP - J2022 T3
+// Auther：zrc4889
 
 stack<char> op;
 string expr;
@@ -14,12 +15,13 @@ struct Node
 int getPriority(char c)
 {
     // int getPriority(char:c)
+    // 获取一个运算符的优先级
 
     if (c == '&')
-        return 4;
-    else if (c == '|')
         return 3;
-    return 1; // 左右括号
+    else if (c == '|')
+        return 2;
+    return 1; // 左右括号最低级
 }
 
 string trans(string expr)
@@ -50,7 +52,7 @@ string trans(string expr)
         }
         else if (c == '&' || c == '|')
         {
-            while (!op.empty() && (getPriority(op.top()) >= getPriority(c))) // 1、优先级大于等于我
+            while (!op.empty() && (getPriority(op.top()) >= getPriority(c)))
             {
                 post.push_back(op.top());
                 op.pop();
@@ -81,8 +83,6 @@ int main()
 
     expr = trans(expr);
 
-    // cout << expr;
-
     stack<Node> s;
 
     int len = expr.size();
@@ -101,8 +101,6 @@ int main()
             Node l = s.top();
             s.pop();
 
-            // TODO
-
             if (c == '&')
             {
                 s.push({l.val & r.val,
@@ -118,8 +116,6 @@ int main()
             }
         }
     }
-
-    // if (s.empty()) cout << 1 << endl;
 
     Node ans = s.top();
 
