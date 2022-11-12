@@ -2,13 +2,12 @@
 using namespace std;
 priority_queue<int>
 
-int main()
+    int main()
 {
 #ifdef LOCAL
     LOCALfo
 #endif
         ;
-
 
     return 0;
 }
