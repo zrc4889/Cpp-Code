@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-priority_queue<int>
 
-    int main()
+int main()
 {
 #ifdef LOCAL
     LOCALfo
 #endif
         ;
+    stack<int> s;
     
     return 0;
 }
