@@ -8,7 +8,9 @@ int getPriority(char t)
         return 2;
     else if (t == '+' || t == '-')
         return 1;
-    else
+    else if (t == '(')
+        return -11;
+    else if (t == ')')
         return 0;
 }
 
@@ -45,6 +47,11 @@ string trans(string expr)
     }
     while (!s.empty())
     {
+        if (s.top() == '(')
+        {
+            cout << "NO" << endl;
+            exit(0);
+        }
         post.push_back(s.top());
         s.pop();
     }
@@ -58,7 +65,7 @@ int main()
 #endif
         ;
     string expr;
-    cin >> expr;
+    getline(cin, expr);
     expr.pop_back();
     expr = trans(expr);
     int len = expr.size();
@@ -116,6 +123,8 @@ int main()
             q.pop();
             y = q.top();
             q.pop();
+            if (x == 0)
+                return cout << "NO" << endl, 0;
             q.push(y / x);
             continue;
         }
@@ -124,12 +133,13 @@ int main()
             q.push(expr[i] - '0');
             continue;
         }
-        if (expr[i] == '(')
+        else
         {
             return cout << "NO" << endl, 0;
         }
     }
-    if (q.size() >= 2) return cout << "NO" << endl, 0;
+    if (q.size() > 2)
+        return cout << "NO" << endl, 0;
     cout << q.top() << endl;
     return 0;
 }
