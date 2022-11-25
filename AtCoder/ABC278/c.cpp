@@ -1,45 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, q;
-map<int, vector<int>> mp;
-map<int, int> list;
-
-void follow(int a, int b)
-{
-    mp[a][b] = 1;
-}
-void unfollow(int a, int b)
-{
-    mp[a][b] = 0;
-}
-void check(int a, int b)
-{
-    cout << (mp[a][b] ? "Yes" : "No") << endl;
-}
+map<pair<int, int>, bool> user;
 int main()
 {
 #ifdef LOCAL
     LOCALfo
 #endif
         ;
+    int n, q;
     cin >> n >> q;
-    while (n--)
+
+    while (q--)
     {
-        int op, a, b;
-        cin >> op;
-        cin >> a >> b;
-        if (op == 1)
+        int t, a, b;
+        cin >> t >> a >> b;
+        switch (t)
         {
-            follow(a, b);
-        }
-        else if (op == 2)
-        {
-            unfollow(a, b);
-        }
-        else if (op == 3)
-        {
-            check(a, b);
+        case 1:
+            user[make_pair(a, b)] = 1;
+            break;
+        case 2:
+            user[make_pair(a, b)] = 0;
+            break;
+        case 3:
+            // bool ab = user[make_pair(a, b)];
+            // bool ba = user[make_pair(b, a)];
+            // if (ab && ba)
+            //     cout << "Yes";
+            // else
+            //     cout << "No";
+            // cout << endl;
+            cout << (user[make_pair(a, b)] && user[make_pair(b, a)] ? "Yes" : "No") << endl;
         }
     }
     return 0;
