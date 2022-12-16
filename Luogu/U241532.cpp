@@ -37,3 +37,19 @@ signed main()
         cout << a[i].num << ' ';
     return 0;
 }
+/*XYC YYDS*/
+/*cookiebus YYDS
+/*nullptr YYDS*/
+/*tree_one_ YYDS*/
+/*PinkRabbit YYDS*/
+/*Eternity YYDS*/
+/*yuxinhao YYDS*/
+/*_ YYDS*/
+/*Fog. orz*/
+/*cookiebus orz
+/*nullptr orz*/
+/*tree_one_ orz*/
+/*PinkRabbit orz*/
+/*yuxinhao orz*/
+/*SSChara_SB orz
+/*_ orz*/
