@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define int long long 
+#define int long long
 using namespace std;
 const int _ = 1e5 + 10;
 int a[_];
@@ -18,21 +18,22 @@ signed main()
         sum += a[i];
     }
 
-    while ((t -= sum) >= 0)
-        ;
+    int start = t % sum;
 
-    // 倍增，但不会写
+    // 循环周期
 
-    t += sum;
-    // cout << t << endl;
-    int cur = 0;
     for (int i = 1; i <= n; i++)
     {
 
-        if (t - a[i] >= 0)
-            t -= a[i], cur = i;
+        // 找出具体某一个首歌，某一个点
+
+        if (a[i] > start)
+        {
+            cout << i << " " << start << endl;
+            return 0;
+        }
+        start -= a[i];
     }
-    cout << cur + 1 << ' ' << t << endl;
 
     return 0;
 }
