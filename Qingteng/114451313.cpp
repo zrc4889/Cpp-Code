@@ -1,64 +1,59 @@
 #include <bits/stdc++.h>
+#define int long long 
 using namespace std;
 
-const int _ = 1e5 + 10;
-int n;
-struct Edge
+const int _ = 3e5 + 10;
+int n, ans = 1e9;
+
+struct Node
 {
-    int to, w;
+    int to, value;
 };
-vector<Edge> e[_];
-int x, len;
+vector<Node> e[_];
+int sz[_], maxp[_];
+// sz 向下子树权值和
+// maxp 所有最大的子树权值和
 
-void dfs(int u, int f, int sum)
+void dfs(int u, int fa)
 {
-    if (sum > len)
-        x = u, len = sum;
+    sz[u] = 1;
 
-    for (auto i : e[u])
+    for (auto p : e[u])
     {
-        int v = i.to;
-        int w = i.w;
-
-        if (v == f)
+        int v = p.to, w = p.value;
+        if (v == fa)
             continue;
 
-        dfs(v, u, sum + w);
+        dfs(v, u);
+        maxp[u] = max(maxp[u], sz[v]);
+        sz[u] += sz[v];
     }
+    maxp[u] = max(maxp[u], n - sz[u]);
+
+    ans = min(ans, maxp[u]);
 }
 
-int main()
+signed main()
 {
 #ifdef LOCAL
     LOCALfo
 #endif
         ;
     cin >> n;
-    for (int i = 2; i <= n; i++)
+
+    for (int i = 1; i < n; i++)
     {
-        // 求约数和
-        int x = i;
-        int y = 1;
-        for (int j = 2; j * j <= x; j++)
-        {
-            if (x % j == 0)
-            {
-                y += j;
-                // 双向
-                if (j != x / j)
-                    y += (x / j);
-            }
-        }
-        if (y < x)
-        {
-            e[x].push_back({y, 1}), e[y].push_back({x, 1});
-        }
+        int u, v;
+        cin >> u >> v;
+
+        e[u].push_back({v, 1});
+        e[v].push_back({u, 1});
     }
-    dfs(1, 0, 0);
 
-    dfs(x, 0, 0);
+    dfs(1, 0);
 
-    cout << len << endl;
-
+    for (int i = 1; i <= n; i++)
+        if (maxp[i] == ans)
+            cout << i << " ";
     return 0;
 }
