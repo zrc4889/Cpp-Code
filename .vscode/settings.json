@@ -87,5 +87,23 @@
         "typeinfo": "cpp",
         "local": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    //background 的相关配置
+    "update.enableWindowsBackgroundUpdates": true,
+    "background.customImages": [
+        "file:///E://temp//1.png" //图片地址
+    ],
+    "background.style": {
+        "content": "''",
+        "pointer-events": "none",
+        "position": "absolute", //图片位置
+        "width": "100%",
+        "height": "100%",
+        "z-index": "99999",
+        "background.repeat": "no-repeat",
+        "background-size": "25%,25%", //图片大小
+        "opacity": 0.2 //透明度
+    },
+    "background.useFront": true,
+    "background.useDefault": false, //是否使用默认图片
 }
