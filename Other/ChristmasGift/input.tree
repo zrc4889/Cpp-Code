@@ -1,0 +1,8 @@
+def fuck : { = a 1; = b 2; }
+itn a
+run fuck
+print a
+nit b
+def tree : { = b 1145;}
+run tree
+print b
