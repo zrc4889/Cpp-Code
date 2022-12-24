@@ -1,6 +1,6 @@
-def fuck : { = a 1; = b 2; }
+def help : { = a 1; = b 2; }
 itn a
-run fuck
+run hello
 print a
 nit b
 def tree : { = b 1145;}
