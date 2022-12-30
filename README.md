@@ -13,3 +13,5 @@ C++学习之路，用于写代码的仓库
 
 ### 帮助
 跪拜大佬[在此解答问题](https://github.com/zrc4889/cpp-code/issues)！
+
+更换C++版本@ext:ms-vscode.cpptools stan

@@ -1,8 +1,8 @@
-def help : { = a 1; = b 2; }
-itn a
-run hello
+def ins : { = a 1; = b 114514; }
+itn a = 114514
+run ins
 print a
-nit b
-def tree : { = b 1145;}
-run tree
-print b
+= a 1919810
+print a
+run ins
+print a
