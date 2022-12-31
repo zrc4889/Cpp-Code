@@ -7,11 +7,10 @@ vector<int> e[_];
 int sz[_];
 int maxp[_];
 int ans = _;
-int n, root = _;
+int n, root = -1;
 
 void dfs(int u, int fa)
 {
-    // sz[u] = 1;
     for (auto v : e[u])
     {
         if (v == fa)
@@ -25,10 +24,7 @@ void dfs(int u, int fa)
 
 signed main()
 {
-#ifdef LOCAL
-    LOCALfo
-#endif
-        ;
+    // start here..
     cin >> n;
     for (int i = 1; i < n; i++)
     {
@@ -41,12 +37,9 @@ signed main()
     dfs(1, 0);
 
     for (int i = 1; i <= n; i++)
-    {
         if (maxp[i] < ans)
-        {
-            ans = maxp[i], root = i;
-        }
-    }
+            ans = maxp[i], root = i; // 常规找重心
+
     memset(sz, 0, sizeof sz);
 
     dfs(root, 0);

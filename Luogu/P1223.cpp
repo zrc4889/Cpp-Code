@@ -30,10 +30,10 @@ int main()
     for (i = 1; i <= n; i++)
         cout << a[i].id << " ";
     cout << endl;
-    
+
     for (int j = n - 1; j >= 1; j--)
     {
-        i = n - j; // n - j 
+        i = n - j; // n - j
         ans += a[i].water * j;
     }
     printf("%.2f", ans / n);
