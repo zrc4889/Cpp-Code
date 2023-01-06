@@ -60,86 +60,67 @@ string trans(string expr)
 
 int main()
 {
-#ifdef LOCAL
-    LOCALfo
-#endif
-        ;
     string expr;
     getline(cin, expr);
     expr.pop_back();
     expr = trans(expr);
     int len = expr.size();
-
-    // 1、左右括号不匹配 2、运算数不合法
-
-    // for (int i = 0; i < len; i++)
-    //     cout << expr[i];
-    // cout << endl;
-
-    int tmp = 0;
+    // cout << expr << endl;
 
     stack<int> q;
-    int x, y;
+
     for (int i = 0; i < len; i++)
     {
-        if (expr[i] == '+')
+        char cur = expr[i];
+        if (q.size() < 2)
         {
-            if (q.size() < 2)
-                return cout << "NO" << endl, 0;
-            x = q.top();
-            q.pop();
-            y = q.top();
-            q.pop();
-            q.push(y + x);
-            continue;
+            cout << "NO" << endl;
+            return 0;
         }
-        if (expr[i] == '-')
+        if ('0' <= cur && cur <= '9')
         {
-            if (q.size() < 2)
-                return cout << "NO" << endl, 0;
-            x = q.top();
-            q.pop();
-            y = q.top();
-            q.pop();
-            q.push(y - x);
-            continue;
-        }
-        if (expr[i] == '*')
-        {
-            if (q.size() < 2)
-                return cout << "NO" << endl, 0;
-            x = q.top();
-            q.pop();
-            y = q.top();
-            q.pop();
-            q.push(y * x);
-            continue;
-        }
-        if (expr[i] == '/')
-        {
-            if (q.size() < 2)
-                return cout << "NO" << endl, 0;
-            x = q.top();
-            q.pop();
-            y = q.top();
-            q.pop();
-            if (x == 0)
-                return cout << "NO" << endl, 0;
-            q.push(y / x);
-            continue;
-        }
-        if ('0' <= expr[i] && expr[i] <= '9')
-        {
-            q.push(expr[i] - '0');
-            continue;
+            q.push(cur - '0');
         }
         else
         {
-            return cout << "NO" << endl, 0;
+            int x, y;
+            switch (cur)
+            {
+            case '+':
+
+                x = q.top();
+                q.pop();
+                y = q.top();
+                q.pop();
+                q.push(y + x);
+                break;
+
+            case '-':
+                x = q.top();
+                q.pop();
+                y = q.top();
+                q.pop();
+                q.push(y - x);
+                break;
+            case '*':
+                x = q.top();
+                q.pop();
+                y = q.top();
+                q.pop();
+                q.push(y * x);
+                break;
+            case '/':
+                x = q.top();
+                q.pop();
+                y = q.top();
+                q.pop();
+                q.push(y / x);
+                break;
+            }
         }
     }
-    if (q.size() > 2)
-        return cout << "NO" << endl, 0;
+
     cout << q.top() << endl;
+
     return 0;
 }
