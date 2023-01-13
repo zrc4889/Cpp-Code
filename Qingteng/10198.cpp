@@ -14,9 +14,9 @@ signed main()
     {
         if (n % i == 0)
         {
-            ans++;
+            ans += i;
             if (i * i != n)
-                ans++;
+                ans += n / i;
         }
     }
     cout << ans << endl;
