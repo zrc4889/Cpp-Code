@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
 int x, y, d;
@@ -16,7 +17,7 @@ int ex_gcd(int a, int b)
     x = y, y = t - a / b * y; // 反推
     return tmp;
 }
-int main()
+signed main()
 {
     // start here..
 
@@ -32,10 +33,10 @@ int main()
     if (c % d != 0)
         return cout << -1 << endl, 0;
 
-    x = c / d * x;
-    y = c / d * y;
+    x = c / d * x; // d 是最大公约数
+    y = c / d * y; // 求一组通解
 
-    cout << x << y << endl;
+    cout << x << ' ' << y << endl;
 
     return 0;
 }
