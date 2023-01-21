@@ -1,37 +1,29 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-bool isp[1000001];
-int pr[114514];
-
-int cnt = 0;
-int n;
-
-void fac(int n)
+bool isp(int x)
 {
-
-    for (int i = 2; i <= n; i++)
-        isp[i] = 1;
-    isp[1] = 0;
-    for (int i = 2; i <= n; i++)
+    for (int i = 2; i * i <= x; i++)
     {
-        if (isp[i])
-            pr[++cnt] = i;
-        for (int j = 1; j <= cnt && i * pr[j] <= n; j++)
+        if (x % i == 0)
         {
-            isp[i * pr[j]] = 0;
-            if (!(i % pr[j]))
-                break;
+            return 0;
         }
     }
+    return 1;
 }
 
-int main()
+signed main()
 {
     // start here..
+
+    int n;
     cin >> n;
-    fac(n);
-    cout << (isp[n] == true ? "Yes" : "No") << endl;
+
+    if (n == 1 || n == 0) cout << "No" << endl;
+
+    else cout << ( isp(n) == 1 ? "Yes" : "No" ) << endl;
 
     return 0;
 }
