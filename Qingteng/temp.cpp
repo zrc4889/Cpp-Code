@@ -1,23 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int p[] = {0, 1, 2, 3, 2, 1, 2, 3, 3, 2, 1};
+int a[114514];
 
 int main()
 {
     // start here..
-    // 本题难点在于，存在两种调整方案，并且混合。
-    // 所以我们可以对微调的数值次数。
+    int n;
+    cin >> n;
+    int cnt = 0;
 
-    int a, b;
-    cin >> a >> b;
+    a[0] = 0;
 
-    int n = abs(a - b) / 10;
-    // 整十整十地看
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
 
-    int m = abs(a - b) % 10;
-    // 微调
+    for (int i = 2; i <= n; i++)
+    {
+        if (a[i - 1] <= a[i] && a[i] <= a[i + 1])
+            cnt += 2;
+    }
 
-    cout << p[m] + n << endl;
+    cout << cnt << endl;
+
     return 0;
 }
