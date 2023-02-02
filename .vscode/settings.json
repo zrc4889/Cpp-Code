@@ -109,7 +109,7 @@
     //background 的相关配置
     "update.enableWindowsBackgroundUpdates": true,
     "background.customImages": [
-        "file:///E://1.png" //图片地址
+        "file:///E://523217.png" //图片地址
     ],
     "background.style": {
         "content": "''",
