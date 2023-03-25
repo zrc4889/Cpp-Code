@@ -1,68 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
+const int _ = 200000;
 
-int n, k;
-int d, x, y;
-int ans = 0;
-const int _ = 150001;
-int fa[_];
+struct Edge
+{
+    int u, v, w;
+} e[_];
+int f[_];
+
+int n, m;
+
+bool cmp(Edge a, Edge b)
+{
+    return a.w < b.w;
+}
 
 int find(int x)
 {
-    if (fa[x] == x)
-        return x;
-    return fa[x] = find(fa[x]);
+    return f[x] == x ? x : f[x] = find(f[x]);
 }
 
-void merge(int a, int b)
+signed main()
 {
-    int ra = find(a);   
-    int rb = find(b);
-    fa[ra] = rb;
-}
+    cin >> n;
+    m = 0;
 
-int main()
-{
-    // start here..
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= n; ++j)
+        {
+            int x;
+            cin >> x;
+            if (i == j)
+                continue;
+            m++, e[m].u = i, e[m].v = j, e[m].w = x;
+        }
 
-    cin >> n >> k;
+    sort(e + 1, e + m + 1, cmp);
 
-    for (int i = 1; i <= 3 * n; ++i)
-        fa[i] = i;
+    for (int i = 1; i <= n; ++i)
+        f[i] = i;
 
-    for (int i = 1; i <= k; ++i)
+    int cnt = 0;
+
+    for (int i = 1; i <= m; ++i)
     {
-        cin >> d >> x >> y;
-        if (x < 1 || x > n || y < 1 || y > n)
-        {
-            ans++;
+        int ru = find(e[i].u), rv = find(e[i].v);
+        if (ru == rv)
             continue;
-        }
-        if (d == 1)
-        {
-            if (find(x) == find(y + n) || find(x) == find(y + 2 * n))
-                ans++;
-            else
-            {
-                merge(x, y);
-                merge(x + n, y + n);
-                merge(x + 2 * n, y + 2 * n);
-            }
-        }
-        else if (d == 2)
-        {
-            if (find(x) == find(y) || find(x) == find(y + n))
-                ans++;
-            else
-            {
-                merge(x, y + 2 * n);
-                merge(x + n, y);
-                merge(x + 2 * n, y + n);
-            }
-        }
+        f[ru] = rv;
+        cnt += e[i].w;
     }
-
-    cout << ans << endl;
+    cout << cnt << endl;
 
     return 0;
 }
