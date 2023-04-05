@@ -3,13 +3,13 @@ using namespace std;
 
 const int _ = 1001;
 int a[_][_], d[_], vis[_];
-int n;
+int n, m;
 
 signed main()
 {
-    cin >> n;
+    cin >> n >> m;
     for (int i = 1; i <= n; ++i)
-        for (int j = 1; j <= n; ++j)
+        for (int j = 1; j <= m; ++j)
             cin >> a[i][j];
 
     // pre-work

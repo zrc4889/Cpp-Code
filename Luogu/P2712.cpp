@@ -1,49 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int _ = 1e6 + 10;
-vector<int> g[_];
+const int _ = 559;
 int d[_];
-int n, m;
+bool used[_];
+vector<int> g[_];
 queue<int> q;
-int a[_];
-int tmp = 1;
-// tmp++
 
 int main()
 {
-    // start here..
 
-    cin >> n >> m;
+    int n, xm = -1;
+    cin >> n;
 
-    for (int i = 1; i <= m; ++i)
+    for (int i = 1; i <= n; ++i)
     {
-        int s, b;
-        int l;
-        cin >> s;
-        cin >> l;
-        for (int i = 1; i <= l; ++i)
+        int k, t;
+        cin >> t >> k;
+
+        used[t] = true;
+
+        while (k--)
         {
-            int t;
-            cin >> t;
-            g[s].push_back(t);
-            d[t]++;
+            int x;
+            cin >> x;
+            g[t].push_back(x), d[x]++;
         }
-        a[tmp++] = s;
+        xm = max(xm, t);
     }
 
-    for (int i = 1; i <= tmp; i++)
+    for (int i = 1; i <= xm; ++i)
     {
-        int u = a[i];
-        if (d[u] == 0)
-            q.push(u);
+        if (d[i] ==  0 && used[i])
+            q.push(i);
     }
-
-    // for (int i = 1; i/ <= n; ++i)
-    // {
-    // if (d[i] == 0)
-    // q.push(i);
-    // }
 
     int cnt = 0;
 
@@ -52,16 +42,17 @@ int main()
         int u = q.front();
         q.pop();
         cnt++;
-        for (int v : g[u])
+        for (auto v : g[u])
         {
             d[v]--;
-            if (d[v] == 0)
+            if (d[v] == 0 && used[v])
                 q.push(v);
         }
     }
 
     if (n == cnt)
         cout << "YES" << endl;
+
     else
         cout << n - cnt << endl;
 
