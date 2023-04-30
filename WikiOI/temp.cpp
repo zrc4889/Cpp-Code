@@ -1,59 +1,56 @@
 #include <bits/stdc++.h>
-#define int long long 
+#define int long long
 using namespace std;
 
-const int _ = 1e5 + 10;
-int a[_];
-int s[_];
+const int _ = 1e6 + 10;
+const int p = 31;
+const int mod = 1e6 + 7;
 
-int sum(int l, int r)
+int pw[_], ha[_];
+int n;
+
+int get_ha(int l, int r)
 {
-    return s[r] - s[l - 1]; 
+    return (ha[r] - ha[l - 1] * pw[r - l + 1] % mod + mod) % mod;
+}
+
+bool check(int x)
+{
+    for (int i = x; i < n; i += x)
+    {
+        if (get_ha(1, x) != get_ha(i + 1, i + x))
+            return false;
+    }
+    return true;
 }
 
 signed main()
 {
     // start here..
-
-    int n;
-    cin >> n;
-
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-    for (int i = 1; i <= n; ++i) s[i] += s[i - 1] + a[i];
-
-    // 探究各个关系
-
-    // 从一号点开始
-
-    int l, r;
-    l = 0, r = 0;
-    // for (int i = 1; i <= n; ++i) r += a[i] * abs(1 - a[i]);
-
-    // cout << l << endl << r << endl;
-
-    // for (int i = 2; i <= n; ++i)
-    // {
-    //     l += a[i] * ()
-    // }
-
-    // r = sum(1, n);  
-
-    for (int i = 1; i <= n; ++i)
+    string s;   
+    while (1)
     {
-        r += a[i] * (i - 1);
+        cin >> s;
+        if (s == ".")
+            break;
+
+        int n = s.size();
+        s = "#" + s;
+
+        pw[0] = 1;
+        for (int i = 1; i <= n; ++i)
+            pw[i] = pw[i - 1] * p % mod;
+
+        ha[0] = 0;
+        for (int i = 1; i <= n; ++i)
+            ha[i] = (ha[i - 1] * p + s[i]) % mod;
+
+        for (int i = 1; i <= n; ++i)
+            if (n % i == 0 && check(i))
+            {
+                cout << n / i << endl;
+                break;
+            }
     }
-
-    // cout << l << ' ' << r << endl;
-
-    int ans = 1e6 + 1;
-
-    for (int i = 1; i <= n; ++i)
-    {
-        l += sum(1 , i - 1);
-        r -= sum(i, n);
-        ans = min(ans, abs(l - r));
-        // cout << l << ' ' << r << endl;
-    }
-    cout << ans << endl;
     return 0;
 }

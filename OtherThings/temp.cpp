@@ -1,65 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int mod = 114514; // tree
-const int _ = mod + 10;
-string g[mod + 10];
 
-int ha(string t)
+const int _ = 2001;
+
+int a[_];
+
+void init(int n)
+{
+    for (int i = 1; i < n; ++i)
+    {
+        a[i] += a[i];
+        a[i + 1] -= a[i];
+    }
+}
+void setted(int l, int r, int x)
+{
+    a[l] += x, a[r + 1] -= x;
+}
+int find(int p)
 {
     int res = 0;
-    for (auto c : t)
-    {
-        res = (c + res * 31 % mod) % mod;
-    }
+    for (int i = 1; i <= p; ++i)
+        res += a[i];
     return res;
-}
-
-bool find(string t)
-{
-    int c = ha(t);
-
-    while (g[c] != "" && g[c] != t)
-        c = c + 1 % mod;
-    return g[c] == t;
-}
-
-void add(string t)
-{
-    if (find(t))
-        return;
-
-    int c = ha(t);
-    while (g[c] != "")
-        c = c + 1 % mod;
-    g[c] = t;
-    // there is no space to place it :(
 }
 
 int main()
 {
     // start here..
-    int n;
-    cin >> n;
-    while (n--)
+
+    freopen("dream.in", "r", stdin);
+    freopen("dream.out", "w", stdout);
+
+    int n, q;
+    cin >> n >> q;
+
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+
+    init(n);
+
+    while (q--)
     {
-        string op;
+        char op;
         cin >> op;
-        if (op == "add")
+        if (op == 'A')
         {
-            string t;
-            // cin >> t;
-            getline(cin, t);
-            add(t);
+            int l, r, x;
+            cin >> l >> r >> x; // 简单的一个差分
+            setted(l, r, x);
         }
-        else
+        if (op == 'J')
         {
-            string t;
-            getline(cin, t);
-            if (find(t))
-                cout << "yes" << endl;
-            else
-                cout << "no" << endl;
+            int p;
+            cin >> p;
+            cout << find(p) << endl;
         }
     }
+
     return 0;
 }
