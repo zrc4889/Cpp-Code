@@ -3,54 +3,48 @@
 using namespace std;
 
 const int _ = 1e6 + 10;
-const int p = 31;
-const int mod = 1e6 + 7;
-
-int pw[_], ha[_];
-int n;
-
-int get_ha(int l, int r)
-{
-    return (ha[r] - ha[l - 1] * pw[r - l + 1] % mod + mod) % mod;
-}
-
-bool check(int x)
-{
-    for (int i = x; i < n; i += x)
-    {
-        if (get_ha(1, x) != get_ha(i + 1, i + x))
-            return false;
-    }
-    return true;
-}
+stack<int> s;
+int ll[_], rr[_], sum[_], a[_], n;
 
 signed main()
 {
     // start here..
-    string s;   
-    while (1)
+
+    a[0] = a[n + 1] = -1e18;
+
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
     {
-        cin >> s;
-        if (s == ".")
-            break;
-
-        int n = s.size();
-        s = "#" + s;
-
-        pw[0] = 1;
-        for (int i = 1; i <= n; ++i)
-            pw[i] = pw[i - 1] * p % mod;
-
-        ha[0] = 0;
-        for (int i = 1; i <= n; ++i)
-            ha[i] = (ha[i - 1] * p + s[i]) % mod;
-
-        for (int i = 1; i <= n; ++i)
-            if (n % i == 0 && check(i))
-            {
-                cout << n / i << endl;
-                break;
-            }
+        cin >> a[i];
+        sum[i] = sum[i - 1] + a[i];
     }
+
+    while (!s.empty()) s.pop();
+    for (int i = 1; i <= n + 1; ++i)
+    {
+        while (!s.empty() && a[s.top()] > a[i])
+        {
+            rr[s.top()] = i;
+            s.pop();
+        }
+        s.push(i);
+    }   
+
+    while(!s.empty()) s.pop();
+    for (int i = n; i >= 0; --i)
+    {
+        while (!s.empty() && a[s.top()] > a[i])
+        {
+            ll[s.top()] = i;
+            s.pop();
+        }
+        s.push(i);
+    }
+    
+    int ans = -1;
+    for (int i = 1; i <= n; ++i)
+        ans = max(ans, (sum[rr[i] - 1] - sum[ll[i]]) * a[i]);
+
+    cout << ans << endl;
     return 0;
 }
