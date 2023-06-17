@@ -1,42 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int _ = 1e5 + 10;
+int n, m, ans, R[30], H[30], S = 0;
 
-vector<int> e[_];
-
-int sum = 0;
-
-void dfs(int u)
+void dfs(int x, int V)
 {
-    if (e[u].empty())
-        sum++;
-    for (auto v : e[u])
+    if (V < 0) return;
+
+    if (x < m && V * 2 / R[x + 1] + S + R[m] * R[m] >= ans) return; // note. 3
+
+    if (x == 0)
     {
-        // cout << u << "->" << v << endl;
-        dfs(v);
-    }
+        if (V == 0)
+        {
+            ans = min(ans, S + R[m] * R[m]);
+        }
+        return;
+    } 
+
+    for (int r = R[x + 1] - 1; r >= x; --r) // note. 1
+        for (int h = H[x + 1] - 1; h >= x; --h)
+        {
+            S += 2 * r * h;
+            R[x] = r, H[x] = h;
+            dfs(x - 1, V - r * r * h);
+            S -= 2 * r * h;
+        }
 }
 
 int main()
 {
-    freopen("chain.in", "r", stdin);
-    freopen("chain.out", "w", stdout);
-
     // start here..
-    int n, m;
+
+    // int n, m;
     cin >> n >> m;
 
-    for (int i = 1; i <= m; ++i)
-    {
-        int x, y;
-        cin >> x >> y;
-        e[x].push_back(y);
-    }
+    // R[m] < R[m + 1]
 
-    dfs(1);
+    // r * r * m <= n -> r <= sqrt(n / m)
 
-    cout << sum << endl;
+    R[m + 1] = (int)sqrt(n / m) + 1; // note. 2
+
+    // m * m * h <= n -> h <= n / (m * m)
+
+    H[m + 1] = n / (m * m) + 1;
+
+    ans = 1e9;
+
+    dfs(m, n);  
+
+    cout << ans << endl;
 
     return 0;
 }
