@@ -1,31 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// void fre(string x, string y){freopen(x, "r", stdin);freopen(y, "w", stdout);}
+const int a[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-int s(int x)
-{
-    int res = 0;
-    int t = x;
-    while (t)
-    {
-        res += t % 10;
-        t /= 10;
-    }
-    return res;
-}
+// 判断闰年
 
 int main()
 {
     // start here..
 
-    int t;
-    cin >> t;
+    int y, m, d;
+    cin >> y >> m >> d;
 
-    while (t--)
-    {
-        
-    }
+    // 闰年二月29日
+
+    // 
 
     return 0;
 }

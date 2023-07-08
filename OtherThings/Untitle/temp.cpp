@@ -1,42 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int _ = 1001;
-int a[_][_], d[_], vis[_];
-int n;
+int n, m, ans, R[30], H[30], S = 0;
 
-signed main()
+void dfs(int x, int V)
 {
-    cin >> n;
-    for (int i = 1; i <= n; ++i)
-        for (int j = 1; j <= n; ++j)
-            cin >> a[i][j];
+    if (V < 0) return;
 
-    // pre-work
-    int s = 1; // 从 1 开始
-    for (int i = 1; i <= n; ++i)
-        d[i] = a[s][i]; // 更新点值
-    vis[s] = true;
+    if (x < m && V * 2 / R[x + 1] + S + R[m] * R[m] >= ans) return; // note. 3
 
-    int sum = 0; // 标记一下是绿色点
-
-    for (int i = 1; i < n; ++i) // 控制轮次
+    if (x == 0)
     {
-        int u = -1;
-        for (int j = 1; j <= n; ++j)
-            if (!vis[j] && (u == -1 || d[u] > d[j]))
-                // 首先保证没找过
-                // 或前面是保证第一个选的点能够被找到
-                // 或后面是保证最短
-                u = j;
-        // u 就是从非绿点找到距离绿点最小距离的点（浅蓝色的点）
-        vis[u] = 1;
-        sum += d[u];
+        if (V == 0)
+        {
+            ans = min(ans, S + R[m] * R[m]);
+        }
+        return;
+    } 
 
-        for (int j = 1; j <= n; ++j)
-            d[j] = min(d[j], a[u][j]); // 原有的和新连的边
-    }
+    for (int r = R[x + 1] - 1; r >= x; --r) // note. 1
+        for (int h = H[x + 1] - 1; h >= x; --h)
+        {
+            S += 2 * r * h;
+            R[x] = r, H[x] = h;
+            dfs(x - 1, V - r * r * h);
+            S -= 2 * r * h;
+        }
+}
 
-    cout << sum << endl;
+int main()
+{
+    // start here..
+
+    // int n, m;
+    cin >> n >> m;
+
+    // R[m] < R[m + 1]
+
+    // r * r * m <= n -> r <= sqrt(n / m)
+
+    R[m + 1] = (int)sqrt(n / m) + 1; // note. 2
+
+    // m * m * h <= n -> h <= n / (m * m)
+
+    H[m + 1] = n / (m * m) + 1;
+
+    ans = 1e9;
+
+    dfs(m, n);  
+
+    cout << ans << endl;
+
     return 0;
 }
