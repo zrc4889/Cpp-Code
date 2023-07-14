@@ -30,7 +30,7 @@ void dijkstra(int s)
         q.pop();
         if (vis[u])
             continue;
-        vis[u] = 1;
+        vis[u] = 1; // ?
         for (auto ed : e[u])
         {
             int w = ed.w, v = ed.to;
