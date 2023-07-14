@@ -15,6 +15,8 @@ int get_hash(int l, int r)
 void init_hash(string s)
 {
     int n = s.length();
+    s = '#' + s;
+
     pw[0] = 1;
     for (int i = 1; i <= n; ++i)
         pw[i] = (pw[i - 1] * p) % mod;
