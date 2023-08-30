@@ -25,11 +25,34 @@ int lca(int x, int y)
     if (d[x] < d[y]) swap(x, y);
     while (d[x] > d[y]) x = fa[x][lg[d[x] - d[y]] - 1];
     if (x == y) return x;
-    for (int k = lg[d[x]] - 1; k >= 0; --k)             // 向下取整
+    for (int k = lg[d[x]] - 1; k >= 0; --k)
         if (fa[x][k] != fa[y][k])
             x = fa[x][k], y = fa[y][k];
     return fa[x][0];
 }
+
+// void dfs(int now, int fath)
+// {
+//     fa[now][0] = fath, d[now] = d[fath] + 1;
+//     for (int i = 1; i <= lg[d[now]]; ++i)
+//         fa[now][i] = fa[fa[now][i - 1]][i - 1];
+//     for (int ed : e[now])
+//     {
+//         int u = ed;
+//         if (u == fath) continue;
+//         dfs(u, now);
+//     }
+// }
+// int lca(int x, int y)
+// {
+//     if (d[x] < d[y]) swap(x, y);
+//     while (d[x] > d[y]) x = fa[x][lg[d[x] - d[y]] - 1];
+//     if (x == y) return x;
+//     for (int k = lg[d[x]] - 1; k >= 0; --k)             // 向下取整
+//         if (fa[x][k] != fa[y][k])
+//             x = fa[x][k], y = fa[y][k];
+//     return fa[x][0];
+// }
 
 int main()
 {
