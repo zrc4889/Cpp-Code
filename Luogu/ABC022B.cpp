@@ -4,10 +4,6 @@ map<int, int> vec;
 
 int main()
 {
-#ifdef LOCAL
-    LOCALfo
-#endif
-        ;
 
     int n;
     cin >> n;
