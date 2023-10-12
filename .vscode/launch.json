@@ -11,9 +11,9 @@
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": [
                 "<",
-                "E:\\cpp-code\\in.in",
+                "E:\\cpp-code\\input",
                 ">",
-                "E:\\cpp-code\\out.out"
+                "E:\\cpp-code\\output"
 
             ],
             "stopAtEntry": false,
