@@ -3,7 +3,7 @@ using namespace std;
 
 stack<int> s;
 int ans[114514];
-int n, a[114514]; 
+int n, a[114514];
 
 // STL 容器补全很慢
 
